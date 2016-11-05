@@ -11,10 +11,16 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = 2048
 TEMPLATE = app
 
+CONFIG += console
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    core/Board.cpp \
+    core/Tile.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    core/Board.h \
+    core/Tile.h \
+    Definitions.h
 
 FORMS    += mainwindow.ui
