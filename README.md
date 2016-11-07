@@ -1,6 +1,4 @@
-﻿# Projekt 2048
-
-Gruppenprojekt für die Vorlesung Algorithmen und Datenstrukturen.
+﻿Gruppenprojekt für die Vorlesung Algorithmen und Datenstrukturen.
 
 # ToDo's Offen
 - Funktion für Punktestand (in Game-Klasse)
