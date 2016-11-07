@@ -16,11 +16,13 @@ CONFIG += console
 SOURCES += main.cpp\
         mainwindow.cpp \
     core/Board.cpp \
-    core/Tile.cpp
+    core/Tile.cpp \
+    core/Game.cpp
 
 HEADERS  += mainwindow.h \
     core/Board.h \
     core/Tile.h \
-    Definitions.h
+    Definitions.h \
+    core/Game.h
 
 FORMS    += mainwindow.ui

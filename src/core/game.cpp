@@ -1,0 +1,64 @@
+#include "core/Game.h"
+
+Game::Game(int dimension)
+{
+    // Init Board
+    m_board = new Board(dimension);
+}
+
+
+bool Game::handleMove(Board::Direction direction)
+{
+    // Testen, ob ueberhaupt eine Bewegung moeglich ist
+    if (!m_board->isAnotherMovePossible())
+    {
+        std::cout << "Lost!" << std::endl;
+        return false;
+    }
+
+    // Bewegung durchfuehren
+    bool has_moved = m_board->move(direction);
+
+    // Ein neues Tile soll erscheinen,
+    // sofern eine Bewegung passiert ist
+    if (has_moved)
+    {
+        m_board->addRandomTile();
+    }
+
+    return true;
+}
+
+void Game::debugPrint(void)
+{
+    std::cout << "Current board state:" << std::endl;
+
+    for (unsigned int i = 0; i < m_board->getDimension(); i++)
+    {
+        std::cout << "-----";
+    }
+    std::cout << "-" << std::endl;
+
+    for (unsigned int i = 0; i < m_board->getDimension(); i++)
+    {
+        for (unsigned int j = 0; j < m_board->getDimension(); j++)
+        {
+            if (m_board->getTile(i, j) != NULL)
+            {
+                std::printf("|%4d", m_board->getTile(i, j)->getValue());
+            }
+            else
+            {
+                std::cout << "|    ";
+            }
+
+        }
+        std::cout << "|" << std::endl;
+    }
+
+    for (unsigned int i = 0; i < m_board->getDimension(); i++)
+    {
+        std::cout << "-----";
+    }
+    std::cout << "-" << std::endl;
+}

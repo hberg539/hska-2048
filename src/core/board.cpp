@@ -16,8 +16,31 @@ Board::Board(int dimension)
     init();
 }
 
+// Kopier-Konstruktor
+Board::Board(const Board &ref)
+{
+    // Initilisiere Dimension
+    updateDimension(ref.m_dimension);
+
+    // Kopiere Tiles
+    for (unsigned int i = 0; i < ref.m_dimension; i++)
+    {
+        for (unsigned int j = 0; j < ref.m_dimension; j++)
+        {
+            if (ref.m_board[i][j] == NULL)
+            {
+                m_board[i][j] = NULL;
+            }
+            else
+            {
+                m_board[i][j] = new Tile(*(ref.m_board[i][j]));
+            }
+        }
+    }
+}
+
 // Bewege das Spielbrett
-void Board::move(Direction dir)
+bool Board::move(Direction dir)
 {
     // Rotiere Spielfeld in eine einheitliche Richtung
     // -> nach "UNTEN" (Schwerkraft)
@@ -61,12 +84,7 @@ void Board::move(Direction dir)
         }
     }
 
-    // Ein neues Tile soll erscheinen,
-    // sofern eine Bewegung passiert ist
-    if (move_cnt > 0)
-    {
-        addRandomTile();
-    }
+    return (move_cnt > 0) ? true : false;
 }
 
 // Setze Tile
@@ -80,6 +98,22 @@ void Board::setTile(unsigned int i, unsigned int j, int value)
     {
         m_board[i][j]->updateValue(value);
     }
+}
+
+// Testen ob ein weiterer Spielzug moeglich ist
+bool Board::isAnotherMovePossible(void)
+{
+    // Aktuelles Spielbrett kopieren
+    Board cur_board(*this);
+
+    // Alle moeglichen Richtungen ausprobieren
+    bool move_possible = false;    
+    if (cur_board.move(Direction::UP)    > 0) move_possible = true;
+    if (cur_board.move(Direction::RIGHT) > 0) move_possible = true;
+    if (cur_board.move(Direction::DOWN)  > 0) move_possible = true;
+    if (cur_board.move(Direction::LEFT)  > 0) move_possible = true;
+
+    return move_possible;
 }
 
 // Bewege ein einzelnes Tile
@@ -253,39 +287,4 @@ T_CORD Board::findFreePosition(void)
     {
         return free_positions[0];
     }
-}
-
-// Only for debug
-void Board::printBoard(void)
-{
-    std::cout << "Current board state:" << std::endl;
-
-    for (unsigned int i = 0; i < m_dimension; i++)
-    {
-        std::cout << "-----";
-    }
-    std::cout << "-" << std::endl;
-
-    for (unsigned int i = 0; i < m_dimension; i++)
-    {
-        for (unsigned int j = 0; j < m_dimension; j++)
-        {
-            if (getTile(i, j) != NULL)
-            {
-                std::printf("|%4d", getTile(i, j)->getValue());
-            }
-            else
-            {
-                std::cout << "|    ";
-            }
-
-        }
-        std::cout << "|" << std::endl;
-    }
-
-    for (unsigned int i = 0; i < m_dimension; i++)
-    {
-        std::cout << "-----";
-    }
-    std::cout << "-" << std::endl;
 }

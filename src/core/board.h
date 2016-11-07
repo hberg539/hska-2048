@@ -4,6 +4,8 @@
 #include "definitions.h"
 #include "core/tile.h"
 #include <vector>
+#include <algorithm>
+#include <iterator>
 
 /**
  * @brief Board Klasse
@@ -20,6 +22,9 @@ public:
 
     // Konstruktor
     Board(int dimension);
+
+    // Kopier-Konstruktor
+    Board(const Board& ref);
 
     // Aktualisiere Dimension vom Spielbrett
     void updateDimension(const unsigned int dimension);
@@ -42,7 +47,7 @@ public:
     void addRandomTile(void);
 
     // Bewege das Spielbrett
-    void move(Direction dir);
+    bool move(Direction dir);
 
     // Bewege einzelne Tiles
     bool moveTile(unsigned int i, unsigned int j);
@@ -50,9 +55,8 @@ public:
     // Rotiere Spielbrett
     void rotate();
 
-    // Only for debug
-    void printBoard(void);
-
+    // Testen ob ein weiterer Spielzug moeglich ist
+    bool isAnotherMovePossible(void);
 
 private:
 
