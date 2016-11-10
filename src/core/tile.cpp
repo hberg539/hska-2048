@@ -1,4 +1,4 @@
-#include "core/Tile.h"
+#include "core/tile.h"
 
 // Konstruktor
 Tile::Tile(int value)

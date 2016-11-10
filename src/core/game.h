@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "core/Board.h"
+#include "core/board.h"
 #include <iostream>
 
 class Game
@@ -16,6 +16,10 @@ public:
 
     // Gebe Spielstand zurueck
     unsigned int getPoints(void);
+
+    // Gebe das Spielbrett zurueck
+    Board * getBoard(void)
+    { return m_board; }
 
     // Only debug
     void debugPrint(void);

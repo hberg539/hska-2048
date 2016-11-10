@@ -1,30 +1,48 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QKeyEvent"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Initialisiere das Spiel
+    m_game = new Game(4);
+
+    // Initialisiere das Spielbrett
+    m_qboard = new QBoard(m_game->getBoard());
+
+    // Fuege QBoard an Layout an
+    ui->layoutBoard->addWidget(m_qboard);
+
+    m_qboard->update();
 }
 
- void MainWindow::keyPressEvent(QKeyEvent *k )
+void MainWindow::keyPressEvent(QKeyEvent *k)
 {
-    switch( k->key())
+    switch (k->key())
     {
-        case Qt::Key_Up:
-            ui->setLabel(1);
-            break;
-        case Qt::Key_Down:
-            ui->setLabel(2);
-            break;
-        default:
-            ui->setLabel(3);
-            break;
-    }
-}
+    case Qt::Key_Up:
+        m_game->handleMove(Board::Direction::UP);
+        break;
 
+    case Qt::Key_Left:
+        m_game->handleMove(Board::Direction::LEFT);
+        break;
+
+    case Qt::Key_Right:
+        m_game->handleMove(Board::Direction::RIGHT);
+        break;
+
+    case Qt::Key_Down:
+        m_game->handleMove(Board::Direction::DOWN);
+        break;
+    }
+
+    // Aktualisiere Widget
+    m_qboard->update();
+}
 
 MainWindow::~MainWindow()
 {

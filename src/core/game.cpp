@@ -1,4 +1,4 @@
-#include "core/Game.h"
+#include "core/game.h"
 
 Game::Game(int dimension)
 {

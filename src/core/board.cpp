@@ -1,4 +1,4 @@
-#include "core/Board.h"
+#include "core/board.h"
 
 #include <iostream>
 #include <algorithm>
@@ -108,10 +108,10 @@ bool Board::isAnotherMovePossible(void)
 
     // Alle moeglichen Richtungen ausprobieren
     bool move_possible = false;    
-    if (cur_board.move(Direction::UP)    > 0) move_possible = true;
-    if (cur_board.move(Direction::RIGHT) > 0) move_possible = true;
-    if (cur_board.move(Direction::DOWN)  > 0) move_possible = true;
-    if (cur_board.move(Direction::LEFT)  > 0) move_possible = true;
+    if (cur_board.move(Direction::UP))    move_possible = true;
+    if (cur_board.move(Direction::RIGHT)) move_possible = true;
+    if (cur_board.move(Direction::DOWN))  move_possible = true;
+    if (cur_board.move(Direction::LEFT))  move_possible = true;
 
     return move_possible;
 }
@@ -223,7 +223,13 @@ void Board::rotate()
 void Board::addRandomTile(void)
 {
     T_CORD new_pos = findFreePosition();
-    m_board[new_pos.first][new_pos.second] = new Tile(2);
+
+    // Nur hinzufuegen wenn der Rueckgabewert gueltig ist
+    // -1 entspricht keiner freien Position
+    if (new_pos.first >= 0 && new_pos.second >= 0)
+    {
+        m_board[new_pos.first][new_pos.second] = new Tile(2);
+    }
 }
 
 // Spielbrett initialisieren
@@ -278,10 +284,10 @@ T_CORD Board::findFreePosition(void)
     // Mische die Positionen zufaellig
     std::random_shuffle(free_positions.begin(), free_positions.end());
 
-    // Lost?
+    // Keine freien Position mehr verfuegbar
     if (free_positions.size() == 0)
     {
-        // ???
+        return std::make_pair(-1, -1);
     }
     else
     {

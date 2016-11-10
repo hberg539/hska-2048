@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QKeyEvent>
+#include "gui/qboard.h"
+#include "core/game.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,10 +17,18 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void setLable(QKeyEvent *k);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::MainWindow *ui;
+
+    // Spiel
+    Game * m_game;
+
+    // Spielbrett
+    QBoard * m_qboard;
 };
 
 #endif // MAINWINDOW_H
