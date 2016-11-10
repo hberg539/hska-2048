@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void setLable(QKeyEvent *k);
 
 private:
     Ui::MainWindow *ui;

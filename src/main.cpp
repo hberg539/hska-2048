@@ -2,7 +2,7 @@
 #include <QApplication>
 
 #include "definitions.h"
-#include "core/Game.h"
+#include "core/board.h"
 #include <iostream>
 #include <QTextStream>
 
@@ -27,9 +27,23 @@ int main(int argc, char *argv[])
     }
     return 0;
 
-//    QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
+//        if (value == "d") board.move(Board::Direction::DOWN);
+//        if (value == "n") board.addRandomTile();
+//        board.printBoard();
 
-//    return a.exec();
+//        value = s.readLine();
+//    }
+//    return 0;
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    QKeyEvent *k;
+    w.show();
+
+    return a.exec();
+    while(1)
+    {
+
+    w.setLable(); //lesen von keyboard
+    }
 }
