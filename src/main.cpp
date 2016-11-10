@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     std::cout << "Running 2048 demo..." << std::endl;
 
     // Command line demo
-    Game game(4);
+    Game game(2);
     QTextStream s(stdin);
     QString value;
 

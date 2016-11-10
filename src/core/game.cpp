@@ -29,8 +29,29 @@ bool Game::handleMove(Board::Direction direction)
     return true;
 }
 
+// Gebe Punktestand zurueck
+// Original: Punkte entspricht den Wert aller Upgrades
+// Unsere Version: Einfach nur die Werte aller Tiles
+unsigned int Game::getPoints(void)
+{
+    unsigned int points = 0;
+
+    for (unsigned int i = 0; i < m_board->getDimension(); i++)
+    {
+        for (unsigned int j = 0; j < m_board->getDimension(); j++)
+        {
+            if (m_board->getTile(i, j) != NULL)
+            {
+                points += m_board->getTile(i, j)->getValue();
+            }
+        }
+    }
+    return points;
+}
+
 void Game::debugPrint(void)
 {
+    std::cout << "Points: " << getPoints() << std::endl;
     std::cout << "Current board state:" << std::endl;
 
     for (unsigned int i = 0; i < m_board->getDimension(); i++)

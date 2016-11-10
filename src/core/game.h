@@ -14,6 +14,9 @@ public:
     // Behandle Bewegung
     bool handleMove(Board::Direction direction);
 
+    // Gebe Spielstand zurueck
+    unsigned int getPoints(void);
+
     // Only debug
     void debugPrint(void);
 
