@@ -33,7 +33,7 @@ private:
     QGridLayout * m_layout;
 
     // QTiles vom Layout
-    std::vector<std::vector<QTile *>> m_layout_tiles;
+    std::vector<std::vector<QTile *> > m_layout_tiles;
 };
 
 #endif // QBOARD_H
