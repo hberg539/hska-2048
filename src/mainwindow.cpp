@@ -24,19 +24,19 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
     switch (k->key())
     {
     case Qt::Key_Up:
-        m_game->handleMove(Board::Direction::UP);
+        m_game->handleMove(m_game->getBoard()->Direction::UP);
         break;
 
     case Qt::Key_Left:
-        m_game->handleMove(Board::Direction::LEFT);
+        m_game->handleMove(m_game->getBoard()->Direction::LEFT);
         break;
 
     case Qt::Key_Right:
-        m_game->handleMove(Board::Direction::RIGHT);
+        m_game->handleMove(m_game->getBoard()->Direction::RIGHT);
         break;
 
     case Qt::Key_Down:
-        m_game->handleMove(Board::Direction::DOWN);
+        m_game->handleMove(m_game->getBoard()->Direction::DOWN);
         break;
     }
 
