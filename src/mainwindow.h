@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include "gui/qboard.h"
 #include "core/game.h"
 

@@ -8,6 +8,9 @@ class Game
 {
 public:
 
+    // Spielstatus
+    enum class State { GAME_RUNNING, GAME_WON, GAME_LOST };
+
     // Konstruktor
     Game(int dimension);
 
@@ -21,11 +24,23 @@ public:
     Board * getBoard(void)
     { return m_board; }
 
+    // Gebe Spielstatus zurueck
+    State getState(void)
+    { return m_state; }
+
+    // Teste, ob Spiel gewonnen
+    bool Game::isGameWon(void);
+
     // Only debug
     void debugPrint(void);
 
 private:
+
+    // Board-Instanz
     Board * m_board;
+
+    // Spielstatus
+    State m_state;
 };
 
 #endif // GAME_H

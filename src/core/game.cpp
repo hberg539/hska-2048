@@ -1,6 +1,7 @@
 #include "core/game.h"
 
 Game::Game(int dimension)
+    : m_state   (Game::State::GAME_RUNNING)
 {
     // Init Board
     m_board = new Board(dimension);
@@ -12,12 +13,19 @@ bool Game::handleMove(Board::Direction direction)
     // Testen, ob ueberhaupt eine Bewegung moeglich ist
     if (!m_board->isAnotherMovePossible())
     {
-        std::cout << "Lost!" << std::endl;
+        m_state = State::GAME_LOST;
         return false;
     }
 
     // Bewegung durchfuehren
     bool has_moved = m_board->move(direction);
+
+    // Testen, ob ein Tile >= 2048 ist
+    // -> dann ist das Spiel gewonnen
+    if (isGameWon())
+    {
+        m_state = State::GAME_WON;
+    }
 
     // Ein neues Tile soll erscheinen,
     // sofern eine Bewegung passiert ist
@@ -27,6 +35,25 @@ bool Game::handleMove(Board::Direction direction)
     }
 
     return true;
+}
+
+bool Game::isGameWon(void)
+{
+    for (unsigned int i = 0; i < m_board->getDimension(); i++)
+    {
+        for (unsigned int j = 0; j < m_board->getDimension(); j++)
+        {
+            if (m_board->getTile(i, j) != NULL)
+            {
+                if (m_board->getTile(i, j)->getValue() >= 2048)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 // Gebe Punktestand zurueck

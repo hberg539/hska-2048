@@ -17,10 +17,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->layoutBoard->addWidget(m_qboard);
 
     m_qboard->update();
+
+    // Neuer Name
+    ui->labelName->setText(QString("Default 2048 Game"));
+
+    // Konfiguriere Stylesheet fuer die Labels
+    ui->labelName->setStyleSheet("QLabel { color: rgb(119,110,101); font: bold; font: 14pt; }");
+    ui->labelPoints->setStyleSheet("QLabel { color: rgb(119,110,101); font: bold; font: 14pt; }");
+    ui->labelPoints->setAlignment(Qt::AlignRight);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
-{
+{   
+    // Spielstatus davor
+    Game::State game_state = m_game->getState();
+
+    // Fuehre Bewegung durch
     switch (k->key())
     {
     case Qt::Key_Up:
@@ -42,6 +54,23 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
 
     // Aktualisiere Widget
     m_qboard->update();
+
+    // Aktualisiere Punkte
+    ui->labelPoints->setText(QString("Punkte: ") + QString::number(m_game->getPoints()));
+
+    // Spiel gewonnen
+    // Gewinn-Fenster nur einmal anzeigen
+    if (game_state != m_game->getState()
+            && m_game->getState() == Game::State::GAME_WON)
+    {
+       QMessageBox::information(this, "Gewonnen!", "Spiel gewonnen!");
+    }
+
+    // Spiel verloren
+    if (m_game->getState() == Game::State::GAME_LOST)
+    {
+        QMessageBox::information(this, "Verloren!", "Spiel verloren!");
+    }
 }
 
 MainWindow::~MainWindow()
