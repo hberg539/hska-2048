@@ -17,7 +17,7 @@ class Solver : public QDialog
 public:
 
     // Enum fuer Algorithmus
-    enum class Algorithm { SOLVE_RANDOM };
+    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT };
 
     // Enum fuer Command
     enum class Command { MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, IDLE };
@@ -29,6 +29,10 @@ public:
     // Setze Game Instanz
     void setGame(Game * game)
     { m_game = game; }
+
+    // Start / Stop Method
+    void start(void);
+    void stop(void);
 
 private slots:
     void on_pushButtonStart_clicked();
@@ -52,6 +56,9 @@ private:
 
     // Random Algorithm
     Command algorithmRandom(void);
+
+    // Left & Right Algorithm
+    Command algorithmLeftRight(void);
 };
 
 #endif // SOLVER_H

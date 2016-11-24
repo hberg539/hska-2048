@@ -28,9 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->labelPoints->setAlignment(Qt::AlignRight);
 
     // Uebergebe Game Instanz zum Solver
-    //ui_solver = new Ui::Solver();
-    //ui_solver = new Ui::Dialog;
-    //ui_solver->setGame(m_game);
+    ui_solver->setGame(m_game);
 }
 
 void MainWindow::slotTest(QKeyEvent *event)
