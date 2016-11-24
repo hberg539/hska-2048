@@ -29,7 +29,7 @@ public:
     { return m_state; }
 
     // Teste, ob Spiel gewonnen
-    bool Game::isGameWon(void);
+    bool isGameWon(void);
 
     // Only debug
     void debugPrint(void);
