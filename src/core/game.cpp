@@ -5,6 +5,9 @@ Game::Game(int dimension)
 {
     // Init Board
     m_board = new Board(dimension);
+
+    // Reset Game
+    resetGame(dimension);
 }
 
 
@@ -35,6 +38,24 @@ bool Game::handleMove(Board::Direction direction)
     }
 
     return true;
+}
+
+void Game::resetGame(void)
+{
+    m_board->clear();
+
+    // Fuege erste Tiles hinzu
+    m_board->addRandomTile();
+    m_board->addRandomTile();
+}
+
+void Game::resetGame(int dimension)
+{
+    // Aendere dimension
+    m_board->updateDimension(dimension);
+
+    // Setze zurueck
+    resetGame();
 }
 
 bool Game::isGameWon(void)

@@ -33,6 +33,9 @@ public:
     unsigned int getDimension(void)
     { return m_dimension; }
 
+    // Clear all tiles
+    void clear(void);
+
     // Gebe Tile zurueck
     Tile * getTile(const unsigned int i, const unsigned int j)
     { return m_board[i][j]; }
@@ -76,10 +79,6 @@ private:
     //    3 -> m_board[1][0]
     //    4 -> m_board[1][1]
     std::vector<std::vector<Tile *> > m_board;
-
-
-    // Initialisiere Board
-    void init(void);
 };
 
 #endif // BOARD_H

@@ -20,6 +20,10 @@ public:
     // Gebe Spielstand zurueck
     unsigned int getPoints(void);
 
+    // Setze Spiel zurueck
+    void resetGame(void);
+    void resetGame(int dimension);
+
     // Gebe das Spielbrett zurueck
     Board * getBoard(void)
     { return m_board; }
