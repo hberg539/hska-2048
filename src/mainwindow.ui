@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>368</width>
-    <height>426</height>
+    <height>428</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,7 +95,7 @@
      <x>0</x>
      <y>0</y>
      <width>368</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -115,7 +115,14 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSolver">
+    <property name="title">
+     <string>Solver</string>
+    </property>
+    <addaction name="actionStart_Solver"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSolver"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionLoad_Savegame">
@@ -141,6 +148,11 @@
   <action name="actionExitr">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionStart_Solver">
+   <property name="text">
+    <string>Start Solver</string>
    </property>
   </action>
  </widget>
