@@ -54,6 +54,9 @@ private:
     // solver selected
     Algorithm m_algorithm_selected;
 
+    // Count number of commands
+    unsigned int m_num_commands;
+
     // Random Algorithm
     Command algorithmRandom(void);
 

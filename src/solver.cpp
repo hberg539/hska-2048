@@ -5,7 +5,8 @@ Solver::Solver(QWidget *parent) :
     QDialog(parent),
     ui                      (new Ui::Solver),
     m_algorithm_selected    (Algorithm::ALGO_RANDOM),
-    m_timer                 (new QTimer)
+    m_timer                 (new QTimer),
+    m_num_commands          (0)
 {
     ui->setupUi(this);
 
@@ -68,6 +69,10 @@ void Solver::update(void)
             break;
         }
     }
+
+    // Count number of commands
+    m_num_commands++;
+    ui->numCommands->setText(QString::number(m_num_commands));
 
     // Beende Solver wenn Spiel gewonnen oder verloren ist
     if (m_game->getState() != Game::State::GAME_RUNNING)
@@ -135,6 +140,10 @@ void Solver::start(void)
 
     // Get selected algorithm
     m_algorithm_selected = (Algorithm)ui->comboAlgorithm->currentData().toInt();
+
+    // Reset number of commands
+    m_num_commands = 0;
+    ui->numCommands->setText(QString::number(m_num_commands));
 
     // Start Timer
     m_timer->setInterval(ui->spinBoxInterval->value());
