@@ -13,7 +13,7 @@ Board::Board(int dimension)
     updateDimension(dimension);
 
     // Initialisiere Spielbrett
-    init();
+    clear();
 }
 
 // Kopier-Konstruktor
@@ -232,8 +232,8 @@ void Board::addRandomTile(void)
     }
 }
 
-// Spielbrett initialisieren
-void Board::init()
+// Spielbrett leeren
+void Board::clear()
 {
     // Setzte NULL als default
     for (unsigned i = 0; i < m_dimension; i++)
@@ -243,11 +243,8 @@ void Board::init()
             m_board[i][j] = NULL;
         }
     }
-
-    // Setze 2 neue Tiles an zufaelliger Position
-    addRandomTile();
-    addRandomTile();
 }
+
 
 // Dimension aktualisieren
 void Board::updateDimension(const unsigned int dimension)

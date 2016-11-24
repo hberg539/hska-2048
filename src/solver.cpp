@@ -84,7 +84,6 @@ Solver::Command Solver::algorithmRandom()
 {
     // Choose any random position
     int output = (rand() % (int)(3 + 1));
-    std::cout << output << std::endl;
 
     switch (output)
     {
@@ -104,7 +103,6 @@ Solver::Command Solver::algorithmLeftRight()
 {
     // Choose any random position
     int output = (rand() % (int)(1 + 1));
-    std::cout << output << std::endl;
 
     switch (output)
     {

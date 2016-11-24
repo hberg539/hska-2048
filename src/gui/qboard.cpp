@@ -32,6 +32,14 @@ void QBoard::update(void)
     // Loesche altes Layout, wenn es existiert
     if (m_layout != NULL) delete m_layout;
 
+    // Passe die Dimension an, sofern sie sich gaendert hat
+    int init_done = false;
+    if (m_layout_tiles.size() != m_board->getDimension())
+    {
+        init();
+        init_done = true;
+    }
+
     // Erstelle neues Layout
     m_layout = new QGridLayout(this);
 
@@ -39,8 +47,8 @@ void QBoard::update(void)
     {
         for (unsigned j = 0; j < m_board->getDimension(); j++)
         {
-            // Loesche alte QTile
-            delete m_layout_tiles[i][j];
+            // Loesche alte QTile (sofern sich die Dimension nicht geaendert hat)
+            if (!init_done) delete m_layout_tiles[i][j];
 
             // Fuege Tiles vom Board hinzu
             m_layout_tiles[i][j] = new QTile(m_board->getTile(i, j));
