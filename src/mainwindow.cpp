@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // Initialisiere das Spiel
-    m_game = new Game(8);
+    m_game = new Game(4);
 
     // Initialisiere das Spielbrett
     m_qboard = new QBoard(m_game->getBoard());
