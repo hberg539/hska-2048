@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Uebergebe Game Instanz zum Solver
     ui_solver->setGame(m_game);
+
 }
 
 void MainWindow::slotTest(QKeyEvent *event)
