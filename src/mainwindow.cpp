@@ -2,14 +2,13 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow (parent),
-    ui          (new Ui::MainWindow),
-    ui_solver   (new Solver(this))
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
     // Initialisiere das Spiel
-    m_game = new Game(8);
+    m_game = new Game(4);
 
     // Initialisiere das Spielbrett
     m_qboard = new QBoard(m_game->getBoard());
@@ -26,25 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->labelName->setStyleSheet("QLabel { color: rgb(119,110,101); font: bold; font: 14pt; }");
     ui->labelPoints->setStyleSheet("QLabel { color: rgb(119,110,101); font: bold; font: 14pt; }");
     ui->labelPoints->setAlignment(Qt::AlignRight);
-
-    // Uebergebe Game Instanz zum Solver
-    //ui_solver = new Ui::Solver();
-    //ui_solver = new Ui::Dialog;
-    //ui_solver->setGame(m_game);
 }
 
-void MainWindow::slotTest(QKeyEvent *event)
-{
-    //QMessageBox::information(this, "Loeser laeuft!", "Ja tut er!");
-    handleKeyPress(event);
-}
-
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    handleKeyPress(event);
-}
-
-void MainWindow::handleKeyPress(QKeyEvent *k)
+void MainWindow::keyPressEvent(QKeyEvent *k)
 {   
     // Spielstatus davor
     Game::State game_state = m_game->getState();
@@ -93,9 +76,4 @@ void MainWindow::handleKeyPress(QKeyEvent *k)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_actionStart_Solver_triggered()
-{
-    ui_solver->show();
 }

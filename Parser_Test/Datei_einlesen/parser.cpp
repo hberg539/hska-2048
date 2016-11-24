@@ -48,7 +48,7 @@ class parser{
 
         }
 
-        void gameallocation(string filename, vector<vector<int> > &xy_values)
+        void gameallocation(string filename, vector<vector<int> >  &xy_values)
         {
             ifstream infile (filename.c_str());
             char buffer[80];
@@ -64,8 +64,6 @@ class parser{
             infile.getline(buffer, MAX);            //Die ersten zwei Zeilen überspringen
             infile.getline(buffer, MAX);
             infile.getline(buffer, MAX);            //Hier stehen jetzt die Daten für die Felder
-
-            // x1y2z128
 
             while (!infile.eof())
             {
