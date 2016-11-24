@@ -77,8 +77,6 @@ void Solver::update(void)
     // Beende Solver wenn Spiel gewonnen oder verloren ist
     if (m_game->getState() != Game::State::GAME_RUNNING)
     {
-        std::cout << "Game Lost or Won, solver stopped" << std::endl;
-
         // Stoppe Solver
         stop();
         return;
