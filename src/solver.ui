@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Solver</class>
+ <class>QSolver</class>
  <widget class="QDialog" name="Solver">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Solver</string>
+   <string>QSolver</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

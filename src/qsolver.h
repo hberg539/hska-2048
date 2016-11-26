@@ -1,5 +1,5 @@
-#ifndef SOLVER_H
-#define SOLVER_H
+#ifndef QSOLVER_H
+#define QSOLVER_H
 
 #include <QDialog>
 #include <QTimer>
@@ -7,24 +7,24 @@
 #include "core/game.h"
 
 namespace Ui {
-class Solver;
+class QSolver;
 }
 
-class Solver : public QDialog
+class QSolver : public QDialog
 {
     Q_OBJECT
 
 public:
 
     // Enum fuer Algorithmus
-    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT };
+    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT, ALGO_SIMPLE };
 
     // Enum fuer Command
     enum class Command { MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, IDLE };
 
     // Konstruktor
-    Solver(QWidget *parent = 0);
-    ~Solver();
+    QSolver(QWidget *parent = 0);
+    ~QSolver();
 
     // Setze Game Instanz
     void setGame(Game * game)
@@ -43,7 +43,7 @@ signals:
     void sendeTest(QKeyEvent * event);
 
 private:
-    Ui::Solver *ui;
+    Ui::QSolver *ui;
 
     // Game instanz
     Game * m_game;
@@ -62,6 +62,9 @@ private:
 
     // Left & Right Algorithm
     Command algorithmLeftRight(void);
+
+    // Einfacher Algorithmus
+    Command algorithmSimple(void);
 };
 
-#endif // SOLVER_H
+#endif // QSOLVER_H

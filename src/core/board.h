@@ -61,6 +61,13 @@ public:
     // Testen ob ein weiterer Spielzug moeglich ist
     bool isAnotherMovePossible(void);
 
+    // Gibt das Board zurueck
+    std::vector<std::vector<Tile *> > getBoard(void)
+    { return m_board; }
+
+    // Gibt das Board als int Vector zurueck
+    std::vector<std::vector<int> > getBoardAsInt(void);
+
 private:
 
     // Member Dimension

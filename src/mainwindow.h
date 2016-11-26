@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include "gui/qboard.h"
 #include "core/game.h"
-#include "solver.h"
+#include "qsolver.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,7 +35,7 @@ private:
     Ui::MainWindow *ui;
 
     // Solver Fenster
-    Solver * ui_solver;
+    QSolver * ui_solver;
 
     // Spiel
     Game * m_game;

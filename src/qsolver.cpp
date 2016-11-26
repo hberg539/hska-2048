@@ -1,9 +1,9 @@
-#include "solver.h"
+#include "qsolver.h"
 #include "ui_solver.h"
 
-Solver::Solver(QWidget *parent) :
+QSolver::QSolver(QWidget *parent) :
     QDialog(parent),
-    ui                      (new Ui::Solver),
+    ui                      (new Ui::QSolver),
     m_algorithm_selected    (Algorithm::ALGO_RANDOM),
     m_timer                 (new QTimer),
     m_num_commands          (0)
@@ -22,7 +22,7 @@ Solver::Solver(QWidget *parent) :
     ui->comboAlgorithm->addItem("Only Left & Right", QVariant((int)Algorithm::ALGO_LEFT_RIGHT));
 }
 
-void Solver::update(void)
+void QSolver::update(void)
 {
     Command command = Command::IDLE;
 
@@ -83,7 +83,7 @@ void Solver::update(void)
     }
 }
 
-Solver::Command Solver::algorithmRandom()
+QSolver::Command QSolver::algorithmRandom()
 {
     // Choose any random position
     int output = (rand() % (int)(3 + 1));
@@ -102,7 +102,7 @@ Solver::Command Solver::algorithmRandom()
     }
 }
 
-Solver::Command Solver::algorithmLeftRight()
+QSolver::Command QSolver::algorithmLeftRight()
 {
     // Choose any random position
     int output = (rand() % (int)(1 + 1));
@@ -117,12 +117,20 @@ Solver::Command Solver::algorithmLeftRight()
     }
 }
 
-Solver::~Solver()
+QSolver::Command QSolver::algorithmSimple()
+{
+    // Get the Board
+    std::vector<std::vector<int> > boardInt = m_game->getBoard()->getBoardAsInt();
+
+    return Command::IDLE;
+}
+
+QSolver::~QSolver()
 {
     delete ui;
 }
 
-void Solver::stop(void)
+void QSolver::stop(void)
 {
     ui->pushButtonStart->setEnabled(true);
     ui->pushButtonStop->setEnabled(false);
@@ -131,7 +139,7 @@ void Solver::stop(void)
     m_timer->stop();
 }
 
-void Solver::start(void)
+void QSolver::start(void)
 {
     ui->pushButtonStart->setEnabled(false);
     ui->pushButtonStop->setEnabled(true);
@@ -148,12 +156,12 @@ void Solver::start(void)
     m_timer->start();
 }
 
-void Solver::on_pushButtonStart_clicked()
+void QSolver::on_pushButtonStart_clicked()
 {
     start();
 }
 
-void Solver::on_pushButtonStop_clicked()
+void QSolver::on_pushButtonStop_clicked()
 {
     stop();
 }

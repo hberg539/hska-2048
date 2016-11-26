@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow (parent),
     ui          (new Ui::MainWindow),
-    ui_solver   (new Solver(this))
+    ui_solver   (new QSolver(this))
 {
     ui->setupUi(this);
 

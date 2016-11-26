@@ -39,6 +39,29 @@ Board::Board(const Board &ref)
     }
 }
 
+// Gebe Spielbrett als int-Vector zurueck
+std::vector<std::vector<int> > Board::getBoardAsInt(void)
+{
+    std::vector<std::vector<int> > boardInt(m_dimension, std::vector<int>(m_dimension));
+
+    for (unsigned int i = 0; i < m_dimension; i++)
+    {
+        for (unsigned int j = 0; j < m_dimension; j++)
+        {
+            if (m_board[i][j] == NULL)
+            {
+                boardInt[i][j] = 0;
+            }
+            else
+            {
+                boardInt[i][j] = m_board[i][j]->getValue();
+            }
+        }
+    }
+
+    return boardInt;
+}
+
 // Bewege das Spielbrett
 bool Board::move(Direction dir)
 {

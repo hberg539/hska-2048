@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     core/board.cpp \
     core/game.cpp \
     core/tile.cpp \
-    solver.cpp
+    qsolver.cpp
 
 HEADERS  += mainwindow.h \
     Definitions.h \
@@ -29,7 +29,7 @@ HEADERS  += mainwindow.h \
     core/board.h \
     core/game.h \
     core/tile.h \
-    solver.h
+    qsolver.h
 
 FORMS    += mainwindow.ui \
     solver.ui
