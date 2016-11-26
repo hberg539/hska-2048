@@ -20,6 +20,7 @@ QSolver::QSolver(QWidget *parent) :
     // Fuege Combolist Eintraege hinzu
     ui->comboAlgorithm->addItem("Random Algorithm", QVariant((int)Algorithm::ALGO_RANDOM));
     ui->comboAlgorithm->addItem("Only Left & Right", QVariant((int)Algorithm::ALGO_LEFT_RIGHT));
+    ui->comboAlgorithm->addItem("Simple Algorithm", QVariant((int)Algorithm::ALGO_SIMPLE));
 }
 
 void QSolver::update(void)
@@ -35,7 +36,13 @@ void QSolver::update(void)
         case Algorithm::ALGO_LEFT_RIGHT:
             command = algorithmLeftRight();
             break;
+        case Algorithm::ALGO_SIMPLE:
+            command = algorithmSimple();
+            break;
     }
+
+    // Add command to history
+    m_command_history.push_back(command);
 
     // Apply command
     switch (command)
@@ -119,8 +126,62 @@ QSolver::Command QSolver::algorithmLeftRight()
 
 QSolver::Command QSolver::algorithmSimple()
 {
-    // Get the Board
-    std::vector<std::vector<int> > boardInt = m_game->getBoard()->getBoardAsInt();
+
+    // If the last move was UP, instantly move DOWN again
+    if (m_command_history.size() > 0 && m_command_history[m_command_history.size() - 1] == Command::MOVE_UP)
+    {
+        std::cout << "Recovering from last UP command" << std::endl;
+        return Command::MOVE_DOWN;
+    }
+
+    // Get the Board as Int-Vector
+    std::vector<std::vector<int> > board = m_game->getBoard()->getBoardAsInt();
+
+    if (m_command_history.size() > 0 && m_command_history[m_command_history.size() - 1] == Command::MOVE_DOWN)
+    {
+        if (solver.isMovePossible(board, solver.Direction::RIGHT)) return Command::MOVE_RIGHT;
+        return Command::MOVE_UP;
+    }
+
+    return Command::MOVE_DOWN;
+
+    /*// Test 3 Directions
+    unsigned int pointsLeft = solver.evaluateMove(board, solver.Direction::LEFT);
+    unsigned int pointsRight = solver.evaluateMove(board, solver.Direction::RIGHT);
+    unsigned int pointsDown = solver.evaluateMove(board, solver.Direction::DOWN);
+
+    // Get move with highest point
+    unsigned int pointsMax = std::max(pointsLeft, std::max(pointsRight, pointsDown));
+
+    // At this point, no move makes any points
+    if (pointsMax == 0)
+    {
+        if (solver.isMovePossible(board, solver.Direction::LEFT)) return Command::MOVE_LEFT;
+        if (solver.isMovePossible(board, solver.Direction::DOWN)) return Command::MOVE_DOWN;
+        if (solver.isMovePossible(board, solver.Direction::RIGHT)) return Command::MOVE_RIGHT;
+        if (solver.isMovePossible(board, solver.Direction::UP)) return Command::MOVE_UP;
+    }
+    // Some specific move makes points
+    else
+    {
+        if (pointsMax == pointsLeft)
+        {
+            std::cout << "Best move is LEFT with " << pointsLeft << " points" << std::endl;
+            return Command::MOVE_LEFT;
+        }
+
+        if (pointsMax == pointsRight)
+        {
+            std::cout << "Best move is RIGHT with " << pointsRight << " points" << std::endl;
+            return Command::MOVE_RIGHT;
+        }
+
+        if (pointsMax == pointsDown)
+        {
+            std::cout << "Best move is DOWN with " << pointsDown << " points" << std::endl;
+            return Command::MOVE_DOWN;
+        }
+    }*/
 
     return Command::IDLE;
 }
@@ -144,9 +205,6 @@ void QSolver::start(void)
     ui->pushButtonStart->setEnabled(false);
     ui->pushButtonStop->setEnabled(true);
 
-    // Get selected algorithm
-    m_algorithm_selected = (Algorithm)ui->comboAlgorithm->currentData().toInt();
-
     // Reset number of commands
     m_num_commands = 0;
     ui->numCommands->setText(QString::number(m_num_commands));
@@ -164,4 +222,16 @@ void QSolver::on_pushButtonStart_clicked()
 void QSolver::on_pushButtonStop_clicked()
 {
     stop();
+}
+
+void QSolver::on_pushButtonSingle_clicked()
+{
+    // Run only one time
+    update();
+}
+
+void QSolver::on_comboAlgorithm_currentIndexChanged(int index)
+{
+    // Get selected algorithm
+    m_algorithm_selected = (Algorithm)ui->comboAlgorithm->currentData().toInt();
 }

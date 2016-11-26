@@ -4,7 +4,9 @@
 #include <QDialog>
 #include <QTimer>
 #include <QKeyEvent>
+#include <algorithm>
 #include "core/game.h"
+#include "solver.h"
 
 namespace Ui {
 class QSolver;
@@ -39,11 +41,18 @@ private slots:
     void on_pushButtonStop_clicked();
     void update();
 
+    void on_pushButtonSingle_clicked();
+
+    void on_comboAlgorithm_currentIndexChanged(int index);
+
 signals:
     void sendeTest(QKeyEvent * event);
 
 private:
     Ui::QSolver *ui;
+
+    // Solver instanz
+    Solver solver;
 
     // Game instanz
     Game * m_game;
@@ -56,6 +65,9 @@ private:
 
     // Count number of commands
     unsigned int m_num_commands;
+
+    // Save command history
+    std::vector<Command> m_command_history;
 
     // Random Algorithm
     Command algorithmRandom(void);
