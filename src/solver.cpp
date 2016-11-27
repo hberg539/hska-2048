@@ -5,6 +5,123 @@ Solver::Solver()
 
 }
 
+Solver::Direction Solver::getBestDirection(const T_BOARD & board, unsigned int runs)
+{
+    // Run every N-times in every direction
+    unsigned int scoreUp    = randomRun(board, Direction::UP, runs);
+    unsigned int scoreRight = randomRun(board, Direction::RIGHT, runs);
+    unsigned int scoreLeft  = randomRun(board, Direction::LEFT, runs);
+    unsigned int scoreDown  = randomRun(board, Direction::DOWN, runs);
+
+    /*std::cout << "avg score up: " << scoreUp << std::endl;
+    std::cout << "avg score right: " << scoreRight << std::endl;
+    std::cout << "avg score left: " << scoreLeft << std::endl;
+    std::cout << "avg score down: " << scoreDown << std::endl;*/
+
+    unsigned int maxScore = std::max(scoreUp, std::max(scoreRight, std::max(scoreLeft, scoreDown)));
+
+    if (maxScore == scoreUp) return Direction::UP;
+    if (maxScore == scoreRight) return Direction::RIGHT;
+    if (maxScore == scoreLeft) return Direction::LEFT;
+    if (maxScore == scoreDown) return Direction::DOWN;
+
+    return Direction::DOWN;
+}
+
+unsigned int Solver::randomRun(const T_BOARD & board, Direction direction, unsigned int runs)
+{
+    unsigned int score_avg = 0;
+
+    for (unsigned int i = 0; i < runs; i++)
+    {
+        score_avg += randomRun(board, direction);
+    }
+
+    return score_avg / runs;
+}
+
+unsigned int Solver::randomRun(const T_BOARD & board, Direction direction)
+{
+    // Make copy
+    T_BOARD tmpboard = board;
+
+    // Move possible?
+    if (!isMovePossible(tmpboard, direction))
+    {
+        return 0;
+    }
+
+    // Move in direction
+    moveBoard(tmpboard, direction);
+
+    // Add random tile
+    addRandomTile(tmpboard);
+
+    // Run the game till the end
+    unsigned int randomMove = 0;
+
+    unsigned int i = 0;
+    while (true)
+    {
+        // Break when no move is possible
+        if (!isMovePossible(tmpboard)) break;
+
+        // Or maximum of games played is reached
+        if (i > 500) break;
+
+        // Do a random move
+        randomMove = rand() % (3 + 1);
+
+        if (randomMove == 0) moveBoard(tmpboard, Direction::RIGHT);
+        if (randomMove == 1) moveBoard(tmpboard, Direction::DOWN);
+        if (randomMove == 2) moveBoard(tmpboard, Direction::LEFT);
+        if (randomMove == 3) moveBoard(tmpboard, Direction::UP);
+
+        // Add random tile
+        addRandomTile(tmpboard);
+
+        i++;
+    }
+
+    // return the points made
+    return getPoints(tmpboard);
+}
+
+void Solver::addRandomTile(T_BOARD & board)
+{
+    // Get free positions
+    std::vector<T_CORD> free_positions = getFreePositions(board);
+
+    // Freie Position verfuegbar
+    if (free_positions.size() > 0)
+    {
+        // Mische die Positionen zufaellig
+        std::random_shuffle(free_positions.begin(), free_positions.end());
+
+        // Add to board
+        board[free_positions[0].first][free_positions[0].second] = 2;
+    }
+}
+
+std::vector<T_CORD> Solver::getFreePositions(const T_BOARD &board)
+{
+    std::vector<T_CORD> free_positions;
+
+    // Find free positions
+    for (unsigned i = 0; i < board.size(); i++)
+    {
+        for (unsigned j = 0; j < board.size(); j++)
+        {
+            if (board[i][j] == 0)
+            {
+                free_positions.push_back(std::make_pair(i, j));
+            }
+        }
+    }
+
+    return free_positions;
+}
+
 bool Solver::isMovePossible(const T_BOARD &board, Direction direction)
 {
     // Copy of Board
@@ -49,7 +166,7 @@ unsigned int Solver::evaluateMove(const T_BOARD &board, Direction direction)
 unsigned int Solver::getPoints(T_BOARD &board)
 {
     unsigned int points = 0;
-    unsigned int dimension = board.size();
+    unsigned int dimension = static_cast<unsigned int>(board.size());
 
     for (unsigned int i = 0; i < dimension; i++)
     {
@@ -63,7 +180,7 @@ unsigned int Solver::getPoints(T_BOARD &board)
 
 unsigned int Solver::moveSingle(T_BOARD & board, unsigned int pos_i, unsigned int pos_j, T_BOARD & flagsUpgraded)
 {
-    unsigned int dimension = board.size();
+    unsigned int dimension = static_cast<unsigned int>(board.size());
 
     // Ueberspringe leeres Tile
     if (board[pos_i][pos_j] == NULL)
@@ -137,7 +254,7 @@ unsigned int Solver::moveSingle(T_BOARD & board, unsigned int pos_i, unsigned in
 
 unsigned int Solver::moveBoard(T_BOARD &board, Direction direction)
 {
-    unsigned int dimension = board.size();
+    unsigned int dimension = static_cast<unsigned int>(board.size());
 
     // Points
     unsigned int points = 0;
@@ -158,8 +275,6 @@ unsigned int Solver::moveBoard(T_BOARD &board, Direction direction)
 
     // Jedes Tile "faellt" nun nach unten,
     // beginnend von links unten
-    unsigned int move_cnt = 0;
-
     for (unsigned int i = dimension; i > 0; i--)
     {
         for (unsigned int j = 0; j < dimension; j++)
@@ -181,7 +296,7 @@ unsigned int Solver::moveBoard(T_BOARD &board, Direction direction)
 
 void Solver::rotateBoard(T_BOARD & board)
 {
-    unsigned int dimension = board.size();
+    unsigned int dimension = static_cast<unsigned int>(board.size());
 
     // Transpose the matrix
     for (unsigned int i = 0; i < dimension; i++ ) {

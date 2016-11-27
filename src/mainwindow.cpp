@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_qboard->update();
 
     // Neuer Name
-    ui->labelName->setText(QString("Default 2048 Game"));
+    ui->labelName->setText(QString("2048 Game"));
 
     // Konfiguriere Stylesheet fuer die Labels
     ui->labelName->setStyleSheet("QLabel { color: rgb(119,110,101); font: bold; font: 14pt; }");

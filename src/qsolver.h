@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTimer>
+#include <QTime>
 #include <QKeyEvent>
 #include <algorithm>
 #include "core/game.h"
@@ -19,7 +20,7 @@ class QSolver : public QDialog
 public:
 
     // Enum fuer Algorithmus
-    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT, ALGO_SIMPLE };
+    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT, ALGO_PURE_MONTE_CARLO };
 
     // Enum fuer Command
     enum class Command { MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, IDLE };
@@ -37,12 +38,10 @@ public:
     void stop(void);
 
 private slots:
+    void update();
     void on_pushButtonStart_clicked();
     void on_pushButtonStop_clicked();
-    void update();
-
     void on_pushButtonSingle_clicked();
-
     void on_comboAlgorithm_currentIndexChanged(int index);
 
 signals:
@@ -69,14 +68,20 @@ private:
     // Save command history
     std::vector<Command> m_command_history;
 
+    // Game won?
+    bool m_game_won;
+
+    // Solver running
+    bool m_running;
+
     // Random Algorithm
     Command algorithmRandom(void);
 
     // Left & Right Algorithm
     Command algorithmLeftRight(void);
 
-    // Einfacher Algorithmus
-    Command algorithmSimple(void);
+    // Pure Monte Carlo Algorithmus
+    Command algorithmPureMonteCarlo(void);
 };
 
 #endif // QSOLVER_H
