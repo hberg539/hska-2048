@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow (parent),
     ui          (new Ui::MainWindow),
     ui_solver   (new QSolver(this))
+    ui_newgame  (new newgame(this))
 {
     ui->setupUi(this);
 
@@ -19,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_qboard->update();
 
+    // uebergebe lable an newgame
+    ui_newgame->setLabel(ui->labelPoints);
     // Neuer Name
     ui->labelName->setText(QString("2048 Game"));
 
@@ -29,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Uebergebe Game Instanz zum Solver
     ui_solver->setGame(m_game);
+    ui_newgame->setGame(m_game);
+    ui_newgame->setqboard(m_qboard);
 }
 
 void MainWindow::slotTest(QKeyEvent *event)
@@ -91,6 +96,11 @@ void MainWindow::handleKeyPress(QKeyEvent *k)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionNew_Game_triggered()
+{
+    ui_newgame->show();
 }
 
 void MainWindow::on_actionStart_Solver_triggered()

@@ -7,6 +7,7 @@
 #include "gui/qboard.h"
 #include "core/game.h"
 #include "qsolver.h"
+#include "newgame.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,12 +31,16 @@ protected:
 
 private slots:
     void on_actionStart_Solver_triggered();
+    void on_actionNew_Game_triggered();
 
 private:
     Ui::MainWindow *ui;
 
     // Solver Fenster
     QSolver * ui_solver;
+
+    //newgame Fenster
+    newgame * ui_newgame;
 
     // Spiel
     Game * m_game;
