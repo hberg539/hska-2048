@@ -132,7 +132,7 @@
   </action>
   <action name="actionSave_Savegame">
    <property name="text">
-    <string>Load Gamestate..</string>
+    <string>Save Gamestate..</string>
    </property>
   </action>
   <action name="actionAbout">

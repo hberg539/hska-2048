@@ -1,5 +1,12 @@
 #include "core/game.h"
 
+#include<stdio.h>
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<cctype>
+#include <stdlib.h>
+
 Game::Game(int dimension)
     : m_state   (Game::State::GAME_RUNNING)
 {
@@ -131,3 +138,74 @@ void Game::debugPrint(void)
     }
     std::cout << "-" << std::endl;
 }
+
+bool Game::load(string filename, string &loadmsg)
+{
+    ifstream infile (filename.c_str());
+    char buffer[80];
+    int MAX=80;
+    int x, y, z, found, xsize, ysize;
+
+    //Erste Zeile wird eingelesen und Spielfeld Groesse ausglesen
+
+    infile.getline(buffer, MAX);
+
+    found = string(buffer).find("x=") + 2;
+    if (isdigit(buffer[found]))
+    {
+        xsize = atoi (buffer + found);
+    }
+
+    found = string(buffer).find("y=") + 2;
+    if (isdigit(buffer[found]))
+    {
+        ysize = atoi (buffer + found);
+    }
+
+    m_board->updateDimension(xsize);            //Quadratisches Spielfeld
+    m_board->clear();
+
+
+    infile.getline(buffer, MAX);            //Zweite Zeile ueberspringen
+
+    //Es werden solange die Spielfelddaten eingelesen bis das Ende erreicht wurde
+
+    while (!infile.eof())
+    {
+        infile.getline(buffer, MAX);
+
+        found = string(buffer).find("x") + 1;
+
+        if (isdigit(buffer[found]))
+        {
+            x = atoi (buffer + found);      //String in Zahl umwandeln
+        }
+
+        found = string(buffer).find("y") + 1;
+        if (isdigit(buffer[found]))
+        {
+            y = atoi (buffer + found);
+        }
+
+        found = string(buffer).find("z=") + 2;
+        if (isdigit(buffer[found]))
+        {
+            z = atoi (buffer + found);
+        }
+
+        if ((x >= xsize) || (y >= xsize))
+        {
+            loadmsg = "Error: To much data!";
+            return false;
+        }
+        else
+        {
+            m_board->setTile(y, x, z);
+        }
+
+    }
+
+    loadmsg = "Loading sucessfull!";
+    return true;
+}
+

@@ -3,6 +3,11 @@
 
 #include "core/board.h"
 #include <iostream>
+#include<string>
+#include<stdio.h>
+#include<stdlib.h>
+
+using namespace std;
 
 class Game
 {
@@ -37,6 +42,9 @@ public:
 
     // Only debug
     void debugPrint(void);
+
+    //Load Game
+    bool load(string filename, string &loadmsg);
 
 private:
 
