@@ -49,7 +49,11 @@ bool Game::handleMove(Board::Direction direction)
 
 void Game::resetGame(void)
 {
+    // Clear board
     m_board->clear();
+
+    // Reset state
+    m_state = State::GAME_RUNNING;
 
     // Fuege erste Tiles hinzu
     m_board->addRandomTile();
