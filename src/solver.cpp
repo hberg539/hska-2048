@@ -20,10 +20,10 @@ Solver::Direction Solver::getBestDirection(const T_BOARD & board, unsigned int r
 
     unsigned int maxScore = std::max(scoreUp, std::max(scoreRight, std::max(scoreLeft, scoreDown)));
 
-    if (maxScore == scoreUp) return Direction::UP;
+    if (maxScore == scoreUp)    return Direction::UP;
     if (maxScore == scoreRight) return Direction::RIGHT;
-    if (maxScore == scoreLeft) return Direction::LEFT;
-    if (maxScore == scoreDown) return Direction::DOWN;
+    if (maxScore == scoreLeft)  return Direction::LEFT;
+    if (maxScore == scoreDown)  return Direction::DOWN;
 
     return Direction::DOWN;
 }
@@ -96,10 +96,13 @@ void Solver::addRandomTile(T_BOARD & board)
     if (free_positions.size() > 0)
     {
         // Mische die Positionen zufaellig
-        std::random_shuffle(free_positions.begin(), free_positions.end());
+        //std::random_shuffle(free_positions.begin(), free_positions.end());
+
+        // Random index
+        unsigned int index = std::rand() % free_positions.size();
 
         // Add to board
-        board[free_positions[0].first][free_positions[0].second] = 2;
+        board[free_positions[index].first][free_positions[index].second] = 2;
     }
 }
 
@@ -145,10 +148,10 @@ bool Solver::isMovePossible(const T_BOARD &board, Direction direction)
 // Test if any move is possible
 bool Solver::isMovePossible(const T_BOARD & board)
 {
-    for (auto dir : std::vector<Direction>{Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT})
-    {
-        if (isMovePossible(board, dir)) return true;
-    }
+    if (isMovePossible(board, Direction::UP))    return true;
+    if (isMovePossible(board, Direction::RIGHT)) return true;
+    if (isMovePossible(board, Direction::DOWN))  return true;
+    if (isMovePossible(board, Direction::LEFT))  return true;
 
     return false;
 }
@@ -297,6 +300,19 @@ unsigned int Solver::moveBoard(T_BOARD &board, Direction direction)
 void Solver::rotateBoard(T_BOARD & board)
 {
     unsigned int dimension = static_cast<unsigned int>(board.size());
+
+//    T_BOARD board_new(dimension, std::vector<int>(dimension, 0));
+
+//    // Faster version of rotate
+//    for (unsigned int i = 0; i < board.size(); i++)
+//    {
+//        for (unsigned int j = 0; j < board.size(); j++)
+//        {
+//            board_new[i][j] = board[board.size() - j - 1][i];
+//        }
+//    }
+
+//    board = board_new;
 
     // Transpose the matrix
     for (unsigned int i = 0; i < dimension; i++ ) {

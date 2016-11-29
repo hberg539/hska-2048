@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <random>
 
 typedef std::vector<std::vector<int> > T_BOARD;
 typedef std::pair<unsigned int, unsigned int> T_CORD;
