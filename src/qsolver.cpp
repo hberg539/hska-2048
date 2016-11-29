@@ -43,6 +43,7 @@ void QSolver::stop(void)
 {
     ui->pushButtonStart->setEnabled(true);
     ui->pushButtonStop->setEnabled(false);
+    ui->pushButtonSingle->setEnabled(true);
 
     // Stop Worker
     m_worker->m_enabled = false;
@@ -52,6 +53,7 @@ void QSolver::start(void)
 {
     ui->pushButtonStart->setEnabled(false);
     ui->pushButtonStop->setEnabled(true);
+    ui->pushButtonSingle->setEnabled(false);
 
     // Reset number of commands
     m_num_commands = 0;
