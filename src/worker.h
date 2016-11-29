@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <iostream>
+#include <ctime>
 #include "core/game.h"
 #include "solver.h"
 #include "definitions.h"
@@ -18,6 +19,9 @@ public:
 
     // Start / Stopped Variable
     bool m_enabled;
+
+    // Only one time
+    bool m_single;
 
     // Set Interval
     void setInterval(unsigned int interval)

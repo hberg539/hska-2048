@@ -78,5 +78,10 @@ void QSolver::on_pushButtonStop_clicked()
 void QSolver::on_pushButtonSingle_clicked()
 {
     // Run only one time
-    update();
+    m_worker->m_single = true;
+    m_worker->m_enabled = true;
+    m_worker->setGame(m_game);
+    m_worker->setInterval(ui->spinBoxInterval->value());
+    m_worker->setAlgorithm((Algorithm)ui->comboAlgorithm->currentData().toInt());
+    m_worker->start();
 }

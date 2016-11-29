@@ -1,9 +1,10 @@
 #include "worker.h"
 
 Worker::Worker() :
-    m_enabled   (false)
+    m_enabled   (false),
+    m_single    (false)
 {
-
+    srand(time(0));
 }
 
 void Worker::run()
@@ -21,7 +22,7 @@ void Worker::run()
         switch (m_algorithm_selected)
         {
             case Algorithm::ALGO_RANDOM:
-                 command = workerRandom();
+                command = workerRandom();
             break;
 
             case Algorithm::ALGO_PURE_MONTE_CARLO:
@@ -75,6 +76,14 @@ void Worker::run()
             m_enabled = false;
         }
 
+        // Single run
+        if (m_single)
+        {
+            m_single = false;
+            m_enabled = false;
+            break;
+        }
+
         // Time difference
         unsigned int update_ms = update_start.elapsed();
 
@@ -94,9 +103,7 @@ void Worker::run()
 Command Worker::workerRandom()
 {
     // Choose any random position
-    int output = (rand() % (int)(3 + 1));
-
-    switch (output)
+    switch (rand() % (3 + 1))
     {
     case 0:
         return Command::MOVE_LEFT;
