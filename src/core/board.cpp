@@ -251,7 +251,7 @@ void Board::addRandomTile(void)
     // -1 entspricht keiner freien Position
     if (new_pos.first >= 0 && new_pos.second >= 0)
     {
-        m_board[new_pos.first][new_pos.second] = new Tile(2);
+        m_board[new_pos.first][new_pos.second] = new Tile(rand() % 100 >= 90 ? 4 : 2);
     }
 }
 

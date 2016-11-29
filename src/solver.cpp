@@ -102,7 +102,7 @@ void Solver::addRandomTile(T_BOARD & board)
         unsigned int index = std::rand() % free_positions.size();
 
         // Add to board
-        board[free_positions[index].first][free_positions[index].second] = 2;
+        board[free_positions[index].first][free_positions[index].second] = rand() % 100 >= 90 ? 4 : 2;
     }
 }
 
