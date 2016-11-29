@@ -115,33 +115,37 @@ void MainWindow::on_actionStart_Solver_triggered()
 
 void MainWindow::on_actionLoad_Savegame_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "//", "All files (*.*)");
-    QString returnmsgqstring;
     string filenamestr, returnmsg;
+    QString returnmsgqstring, filename;
 
-    filenamestr = filename.toStdString();
+    filename = QFileDialog::getOpenFileName(this, tr("Open File"), "//", "All files (*.*)");
 
-    if ((m_game->load(filenamestr, returnmsg)) == true)
+    if (filename != NULL)
     {
-        //Loesche altes Spielbrett
-        delete m_qboard;
+        filenamestr = filename.toStdString();
 
-        // Initialisiere das Spielbrett
-        m_qboard = new QBoard(m_game->getBoard());
+        if ((m_game->load(filenamestr, returnmsg)) == true)
+        {
+            //Loesche altes Spielbrett
+            delete m_qboard;
 
-        // Fuege QBoard an Layout an
-        ui->layoutBoard->addWidget(m_qboard);
+            // Initialisiere das Spielbrett
+            m_qboard = new QBoard(m_game->getBoard());
 
-        m_qboard->update();
+            // Fuege QBoard an Layout an
+            ui->layoutBoard->addWidget(m_qboard);
 
+            m_qboard->update();
+
+        }
+        else
+        {
+
+        }
+
+        returnmsgqstring = QString::fromStdString(returnmsg);
+
+        QMessageBox::information(this, tr("File load"), returnmsgqstring);
     }
-    else
-    {
-
-    }
-
-    returnmsgqstring = QString::fromStdString(returnmsg);
-
-    QMessageBox::information(this, tr("File load"), returnmsgqstring);
 
 }
