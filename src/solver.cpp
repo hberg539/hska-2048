@@ -13,11 +13,6 @@ Solver::Direction Solver::getBestDirection(const T_BOARD & board, unsigned int r
     unsigned int scoreLeft  = randomRun(board, Direction::LEFT, runs);
     unsigned int scoreDown  = randomRun(board, Direction::DOWN, runs);
 
-    /*std::cout << "avg score up: " << scoreUp << std::endl;
-    std::cout << "avg score right: " << scoreRight << std::endl;
-    std::cout << "avg score left: " << scoreLeft << std::endl;
-    std::cout << "avg score down: " << scoreDown << std::endl;*/
-
     unsigned int maxScore = std::max(scoreUp, std::max(scoreRight, std::max(scoreLeft, scoreDown)));
 
     if (maxScore == scoreUp)    return Direction::UP;

@@ -41,9 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_newgame->setqboard(m_qboard);
 }
 
-void MainWindow::slotTest(QKeyEvent *event)
+void MainWindow::recvKeyEvent(QKeyEvent *event)
 {
-    //QMessageBox::information(this, "Loeser laeuft!", "Ja tut er!");
     handleKeyPress(event);
 }
 

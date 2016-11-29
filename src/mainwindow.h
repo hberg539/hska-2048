@@ -24,7 +24,7 @@ public:
     void handleKeyPress(QKeyEvent * event);
 
 public slots:
-     void slotTest(QKeyEvent * event);
+     void recvKeyEvent(QKeyEvent * event);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

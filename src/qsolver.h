@@ -8,6 +8,8 @@
 #include <algorithm>
 #include "core/game.h"
 #include "solver.h"
+#include "worker.h"
+#include "definitions.h"
 
 namespace Ui {
 class QSolver;
@@ -18,13 +20,6 @@ class QSolver : public QDialog
     Q_OBJECT
 
 public:
-
-    // Enum fuer Algorithmus
-    enum class Algorithm { ALGO_RANDOM, ALGO_LEFT_RIGHT, ALGO_PURE_MONTE_CARLO };
-
-    // Enum fuer Command
-    enum class Command { MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, IDLE };
-
     // Konstruktor
     QSolver(QWidget *parent = 0);
     ~QSolver();
@@ -37,51 +32,25 @@ public:
     void start(void);
     void stop(void);
 
+public slots:
+     void recvKeyEvent(QKeyEvent * event);
+
 private slots:
-    void update();
     void on_pushButtonStart_clicked();
     void on_pushButtonStop_clicked();
     void on_pushButtonSingle_clicked();
-    void on_comboAlgorithm_currentIndexChanged(int index);
-
-signals:
-    void sendeTest(QKeyEvent * event);
 
 private:
     Ui::QSolver *ui;
 
-    // Solver instanz
-    Solver solver;
-
-    // Game instanz
-    Game * m_game;
-
-    // Timer Instanz
-    QTimer * m_timer;
-
-    // solver selected
-    Algorithm m_algorithm_selected;
-
     // Count number of commands
     unsigned int m_num_commands;
 
-    // Save command history
-    std::vector<Command> m_command_history;
+    // Worker Instanz
+    Worker * m_worker;
 
-    // Game won?
-    bool m_game_won;
-
-    // Solver running
-    bool m_running;
-
-    // Random Algorithm
-    Command algorithmRandom(void);
-
-    // Left & Right Algorithm
-    Command algorithmLeftRight(void);
-
-    // Pure Monte Carlo Algorithmus
-    Command algorithmPureMonteCarlo(void);
+    // Game instanz
+    Game * m_game;
 };
 
 #endif // QSOLVER_H
