@@ -16,3 +16,8 @@
 # ToDo's kkettinger
 - GUI Widget des Spiels fertigstellen
 - Spielogik fertigstellen (Verloren / Gewonnen / Punkte)
+
+#  Linux with multiple QT installations
+```
+qtchooser -run-tool=qmake -qt=qt5
+````
