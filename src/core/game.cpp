@@ -146,8 +146,8 @@ void Game::debugPrint(void)
 bool Game::load(string filename, string &loadmsg)
 {
     ifstream infile (filename.c_str());
-    char buffer[80];
     int MAX=80;
+    char buffer[MAX+1];
     int x, y, z, found, xsize, ysize;
 
     //Erste Zeile wird eingelesen und Spielfeld Groesse ausglesen
