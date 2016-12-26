@@ -17,6 +17,13 @@ public:
     enum class Direction { LEFT, RIGHT, UP, DOWN };
 
     Solver();
+    Solver(int lastDirection);
+
+    Direction getDirection(int direction);
+
+    int getlastDirection();
+
+    void setlastDirection(int a);
 
     // Get best direction
     Direction getBestDirection(const T_BOARD & board, unsigned int runs);
@@ -34,6 +41,12 @@ public:
     // Test if any move is possible
     bool isMovePossible(const T_BOARD &board);
     bool isMovePossible(const T_BOARD &board, Direction direction);
+    bool isRightDownPossible(const T_BOARD &board);
+
+    //
+    bool compareNumberTiles(const T_BOARD &board);
+    // Compare two diagonal tiles
+    bool compareTiles(const T_BOARD &board);
 
     // Test Direction
     unsigned int evaluateMove(const T_BOARD &board, Direction direction);
@@ -54,6 +67,8 @@ private:
 
     // Rotate Board
     void rotateBoard(T_BOARD & board);
+
+    int lastDirection;
 
 };
 

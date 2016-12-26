@@ -9,6 +9,8 @@ Worker::Worker() :
 
 void Worker::run()
 {
+    Solver solva(0);
+    Command lastdirc = Command::MOVE_DOWN;
     while (m_enabled)
     {
         // Start counter
@@ -27,6 +29,11 @@ void Worker::run()
 
             case Algorithm::ALGO_PURE_MONTE_CARLO:
                 command = workerPureMonteCarlo();
+                break;
+
+            case Algorithm::ALGO_RIGHT_DOWN:
+                command = workerRightDown(solva);
+                printf("Hallo Right\n");
                 break;
         }
 
@@ -116,6 +123,63 @@ Command Worker::workerRandom()
         return Command::MOVE_DOWN;
     }
 }
+
+Command Worker::workerRightDown(Solver &solva)
+{
+    int a=0;
+    //Solver solv(0);
+     std::vector<std::vector<int> > board = m_game->getBoard()->getBoardAsInt();
+
+    Solver::Direction Direction;
+    printf("if possible\n");
+    if(!solva.isRightDownPossible(board))
+        Direction = Solver::Direction::LEFT;
+    else if(solva.compareTiles(board)&&solva.compareNumberTiles(board))
+    {
+        printf("compare Tiles success\n");
+        Direction = Solver::Direction::LEFT;
+        solva.setlastDirection(1);
+    }
+    else
+    {
+        a=solva.getlastDirection();
+        Direction = solva.getDirection(a);
+        if(a==0)
+        {
+            solva.setlastDirection(1);
+        }
+        else
+        {
+            solva.setlastDirection(0);
+        }
+    }
+    //switch between right and down direction. otherwise go top then left.
+    printf("go direction\n");
+    switch (Direction)
+    {
+        case Solver::Direction::LEFT:
+            return Command::MOVE_LEFT;
+        break;
+
+        case Solver::Direction::RIGHT:
+            return Command::MOVE_RIGHT;
+        break;
+
+        case Solver::Direction::UP:
+            return Command::MOVE_UP;
+        break;
+
+        case Solver::Direction::DOWN:
+            return Command::MOVE_DOWN;
+        break;
+
+        default:
+            return Command::IDLE;
+    }
+}
+
+
+
 
 Command Worker::workerPureMonteCarlo()
 {

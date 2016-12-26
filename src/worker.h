@@ -48,6 +48,9 @@ private:
     // Worker for Pure Monte Carlo
     Command workerPureMonteCarlo();
 
+    // Worker for Right Down
+    Command workerRightDown(Solver &solva);
+
     // Algorithm selected
     Algorithm m_algorithm_selected;
 

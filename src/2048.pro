@@ -20,10 +20,10 @@ SOURCES += main.cpp\
     core/board.cpp \
     core/game.cpp \
     core/tile.cpp \
-    solver.cpp \
     newgame.cpp \
     qsolver.cpp \
-    worker.cpp
+    worker.cpp \
+    solver.cpp
 
 HEADERS  += mainwindow.h \
     Definitions.h \

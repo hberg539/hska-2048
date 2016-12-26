@@ -2,7 +2,36 @@
 
 Solver::Solver()
 {
+}
 
+Solver::Solver(int lastDirection)
+{
+    lastDirection=0;
+}
+
+Solver::Direction Solver::getDirection(int lastDirection)
+{
+    switch(lastDirection)
+    {
+    case 0:
+        return Direction::RIGHT;
+    case 1:
+        return Direction::DOWN;
+    default:;
+    }
+}
+
+int Solver::getlastDirection()
+{
+    printf("return lastdirc = %d\n",this->lastDirection);
+    return this->lastDirection;
+}
+
+void Solver::setlastDirection(int lastDirection)
+{
+    printf("lastDirection=%d\n",lastDirection);
+    this->lastDirection=lastDirection;
+    printf("thisdirc=%d\n",this->lastDirection);
 }
 
 Solver::Direction Solver::getBestDirection(const T_BOARD & board, unsigned int runs)
@@ -82,6 +111,45 @@ unsigned int Solver::randomRun(const T_BOARD & board, Direction direction)
     return getPoints(tmpboard);
 }
 
+bool Solver::compareTiles(const T_BOARD & board)
+{
+    printf("Tile=%d\n",board[board.size()-1][board.size()-1]);
+    if((board[board.size()-1][board.size()-2]==board[board.size()-2][board.size()-1]
+       && board[board.size()-1][board.size()-1]>=board[board.size()-1][board.size()-2])
+       || (board[board.size()-2][board.size()-3]==board[board.size()-3][board.size()-2]
+           && board[board.size()-2][board.size()-2]>=board[board.size()-2][board.size()-3]))
+        return true;
+    else
+        return false;
+
+}
+
+bool Solver::compareNumberTiles(const T_BOARD &board)
+{
+    unsigned int i=0,k=0,l=0,j=0;
+
+    printf("board isze = %d\n",board.size());
+    for(int a=0;a<board.size();a++)
+    {
+    if(board[board.size()-2][a]!=NULL)
+        i++;
+    if(board[board.size()-1][a]!=NULL)
+        j++;
+    if(board[board.size()-3][a]!=NULL)
+        k++;
+    }
+    printf("i=%d j=%d\n",i,j);
+    if(j==board.size())
+    {
+        if(i==(j-1))
+            return true;
+        else if(i==j==board.size() && k-1==(board.size()-1))
+            return true;
+    }
+    else
+        return false;
+}
+
 void Solver::addRandomTile(T_BOARD & board)
 {
     // Get free positions
@@ -147,6 +215,15 @@ bool Solver::isMovePossible(const T_BOARD & board)
     if (isMovePossible(board, Direction::RIGHT)) return true;
     if (isMovePossible(board, Direction::DOWN))  return true;
     if (isMovePossible(board, Direction::LEFT))  return true;
+
+    return false;
+}
+
+bool Solver::isRightDownPossible(const T_BOARD & board)
+{
+    if (isMovePossible(board, Direction::RIGHT)) return true;
+    if (isMovePossible(board, Direction::DOWN))  return true;
+
 
     return false;
 }

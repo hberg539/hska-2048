@@ -19,6 +19,7 @@ QSolver::QSolver(QWidget *parent) :
     // Fuege Combolist Eintraege hinzu
     ui->comboAlgorithm->addItem("Random Algorithm", QVariant((int)Algorithm::ALGO_RANDOM));
     ui->comboAlgorithm->addItem("Pure Monte Carlo", QVariant((int)Algorithm::ALGO_PURE_MONTE_CARLO));
+    ui->comboAlgorithm->addItem("Right Down", QVariant((int)Algorithm::ALGO_RIGHT_DOWN));
 }
 
 void QSolver::recvKeyEvent(QKeyEvent *event)
