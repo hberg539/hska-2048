@@ -34,6 +34,19 @@ void Solver::setlastDirection(int lastDirection)
     printf("thisdirc=%d\n",this->lastDirection);
 }
 
+bool Solver::mergevertical(const T_BOARD & board)
+{
+    for(int j=1;j<board.size();j++)
+    {
+        for(int i=0;i<board.size();i++)
+        {
+            if(board[j][i]==board[j-1][i] && board[j][i]!=NULL)
+                return true;
+        }
+    }
+    return false;
+}
+
 Solver::Direction Solver::getBestDirection(const T_BOARD & board, unsigned int runs)
 {
     // Run every N-times in every direction
@@ -115,16 +128,33 @@ bool Solver::compareTiles(const T_BOARD & board)
 {
     printf("Tile=%d\n",board[board.size()-1][board.size()-1]);
     if((board[board.size()-1][board.size()-2]==board[board.size()-2][board.size()-1]
-       && board[board.size()-1][board.size()-1]>=board[board.size()-1][board.size()-2])
-       || (board[board.size()-2][board.size()-3]==board[board.size()-3][board.size()-2]
-           && board[board.size()-2][board.size()-2]>=board[board.size()-2][board.size()-3]))
+       && board[board.size()-1][board.size()-2] != NULL
+        && board[board.size()-1][board.size()-1]>=board[board.size()-1][board.size()-2])
+       || (board[board.size()-2][board.size()-2]==board[board.size()-3][board.size()-1]
+           && board[board.size()-2][board.size()-2] != NULL))
+        //
+        //&& board[board.size()-2][board.size()-2]>=board[board.size()-2][board.size()-3]
         return true;
     else
         return false;
 
 }
 
-bool Solver::compareNumberTiles(const T_BOARD &board)
+bool Solver::checkRowTiles(const T_BOARD &board)
+{
+    for(int j=board.size()-2;j<board.size();j++)
+    {
+        for(int l=1;l<board.size();l++)
+        {
+            if(board[j][l]==board[j][l-1])
+                return false;
+        }
+    }
+    return true;
+}
+
+
+bool Solver::compareNumberTiles(const T_BOARD &board, int mode)
 {
     unsigned int i=0,k=0,l=0,j=0;
 
@@ -141,9 +171,14 @@ bool Solver::compareNumberTiles(const T_BOARD &board)
     printf("i=%d j=%d\n",i,j);
     if(j==board.size())
     {
-        if(i==(j-1))
+        if(mode ==0)
+        {
+        if(i==(board.size()-1))
             return true;
-        else if(i==j==board.size() && k-1==(board.size()-1))
+        else if(i==j==board.size() && (k==(board.size()-1)))
+            return true;
+        }
+        else
             return true;
     }
     else

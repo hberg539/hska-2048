@@ -133,13 +133,19 @@ Command Worker::workerRightDown(Solver &solva)
     Solver::Direction Direction;
     printf("if possible\n");
     if(!solva.isRightDownPossible(board))
+    {
+        //todo id last row is full move down otherwise move right
         Direction = Solver::Direction::LEFT;
-    else if(solva.compareTiles(board)&&solva.compareNumberTiles(board))
+        solva.setlastDirection(0);
+    }
+    else if(solva.compareTiles(board)&&solva.compareNumberTiles(board,0)&& solva.getlastDirection()==1 && solva.checkRowTiles(board))
     {
         printf("compare Tiles success\n");
         Direction = Solver::Direction::LEFT;
-        solva.setlastDirection(1);
+        solva.setlastDirection(3);
     }
+    else if(solva.mergevertical(board) && solva.compareNumberTiles(board,1))
+        Direction = Solver::Direction::DOWN;
     else
     {
         a=solva.getlastDirection();
@@ -153,7 +159,7 @@ Command Worker::workerRightDown(Solver &solva)
             solva.setlastDirection(0);
         }
     }
-    //switch between right and down direction. otherwise go top then left.
+    //switch between right and down direction. otherwise go left.
     printf("go direction\n");
     switch (Direction)
     {

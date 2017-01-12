@@ -38,13 +38,19 @@ public:
     // Get all free positions
     std::vector<T_CORD> getFreePositions(const T_BOARD &board);
 
+    // Check if Tiles with same Value are above each other
+    bool mergevertical(const T_BOARD &board);
+
+    // Check if Tiles in a row can be merge
+    bool checkRowTiles(const T_BOARD &board);
+
     // Test if any move is possible
     bool isMovePossible(const T_BOARD &board);
     bool isMovePossible(const T_BOARD &board, Direction direction);
     bool isRightDownPossible(const T_BOARD &board);
 
     //
-    bool compareNumberTiles(const T_BOARD &board);
+    bool compareNumberTiles(const T_BOARD &board,int mode);
     // Compare two diagonal tiles
     bool compareTiles(const T_BOARD &board);
 
