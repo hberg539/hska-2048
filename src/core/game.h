@@ -6,6 +6,7 @@
 #include<string>
 #include<stdio.h>
 #include<stdlib.h>
+#include<fstream>
 
 using namespace std;
 
@@ -15,6 +16,16 @@ public:
 
     // Spielstatus
     enum class State { GAME_RUNNING, GAME_WON, GAME_LOST };
+
+    // Datentypen fuer lexikal
+    enum lexstate{L_START, L_INT, L_IDENT, L_OPERATOR, L_VARIABLE, L_ADRESS, L_FILEEND};
+
+    // Struct fuer lexikal
+    struct tyyval{
+        string s, si;       //s für Text, si für Zahlen die später zu einem Integer gewandelt werden
+        int i;              //i für ausgelesene Zahlen
+        lexstate type;     //type gibt um welchen Datentyp es sich handelt
+    };
 
     // Konstruktor
     Game(int dimension);
@@ -45,6 +56,9 @@ public:
 
     //Load Game
     bool load(string filename, string &loadmsg);
+
+    //Lexikal Analyser
+    bool lexikal(FILE *inf, tyyval *yyval);
 
 private:
 
