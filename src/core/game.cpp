@@ -147,7 +147,7 @@ bool Game::load(string filename, string &loadmsg)
 {
     tyyval result;
     FILE *loadfile;
-    int x, y;
+    int x, y, z;
 
     loadfile = fopen(filename.c_str(), "r");
 
@@ -158,24 +158,25 @@ bool Game::load(string filename, string &loadmsg)
 
     do {
         lexikal(loadfile, &result);
-        if (result.type == L_VARIABLE && result.s == "size"){
+        if (result.type == L_IDENT && result.s == "size"){
             lexikal(loadfile, &result);
             if (result.type == L_INT){
                 m_board->updateDimension(result.i);            //Quadratisches Spielfeld
                 m_board->clear();
             }
         }
-        else if (result.type == L_ADRESS && result.s == "x"){
-            x = result.i;
+        else if (result.type == L_IDENT && result.s[0] == 'x'){
+            string temp = result.s.substr(1);
+            x = atoi(temp.c_str()) ;
         }
-        else if (result.type == L_ADRESS && result.s == "y"){
-            y = result.i;
+        else if (result.type == L_IDENT && result.s[0] == 'y'){
+            string temp = result.s.substr(1);
+            y = atoi(temp.c_str()) ;
         }
-        else if (result.type == L_VARIABLE && result.s == "z"){
-            lexikal(loadfile, &result);
-            if (result.type == L_INT){
-                m_board->setTile(y, x, result.i);
-            }
+        else if (result.type == L_IDENT && result.s[0] == 'z'){
+            string temp = result.s.substr(1);
+            z = atoi(temp.c_str()) ;
+            m_board->setTile(y, x, z);
         }
     }
     while (result.type != L_FILEEND);
@@ -259,95 +260,74 @@ bool Game::lexikal(FILE *inf, tyyval *yyval)
     lexstate s;
     s = L_START;
 
-    while(c != EOF)
+
+    while(1)
     {
         c = getc(inf);
 
         switch(s){
             case L_START:
                 yyval->s = "";
-                yyval->si = "";
+               // yyval->si = "";
                 yyval->i = 0;
                 if (isdigit(c)){
                     s = L_INT;
-                    yyval->si.append (1, c);
+                    yyval->s.append (1, c);
                 }
                 else if (isalpha(c)){
                     s = L_IDENT;
                     yyval->s.append (1, c);
                 }
+                else if (isspace(c) || c == ','){
+                    break;
+                }
+                else if (c == EOF){
+                    yyval->type = L_FILEEND;
+                    return true;
+                }
+                else{
+                    return false;
+                }
             break;
             case L_INT:
                 if (isdigit(c)){
                     s = L_INT;
-                    yyval->si.append (1, c);
+                    yyval->s.append (1, c);
                 }
-                else{
+                else if(isspace(c) || c == ','){
                     //s = L_START;
-                    ungetc(c, inf);
                     yyval->type = s;
-                    yyval->i = atoi(yyval->si.c_str());
+                    yyval->i = atoi(yyval->s.c_str());
                     return (true);
                     //printf("Number: %d\n", yyval.i);
                 }
+                else{
+                    ungetc(c, inf);
+                    yyval->type = s;
+                    yyval->i = atoi(yyval->s.c_str());
+                    return (true);
+                    }
                 break;
             case L_IDENT:     //Hier wird geprueft, ob es sich um eine Adresse oder Variable handelt
-                if (isdigit(c)){
-                    s = L_ADRESS;
-                    yyval->si.append (1, c);
+                if (isdigit(c) || isalpha(c)){
+                    yyval->s.append (1, c);
                 }
-                else if (isalpha(c)){
-                    s = L_VARIABLE;
-                    yyval->s.append(1, c);
-                }
-                else if (c == 61){          //Fuer Variablen mit einem Buchstaben, 61= "="
+                else if (isspace(c) || c == ','){          //Fuer Variablen mit einem Buchstaben, 61= "="
                     //s = L_START;
-                    yyval->type = L_VARIABLE;
-                    return (true);
-                    //printf("Variable: %s\n", yyval.s.c_str());
-                }
-                else{
-                    printf("ERROR input\n");
-                    s = L_START;
-                }
-                break;
-            case L_ADRESS:
-                if (isdigit(c)){
-                    yyval->si.append (1, c);
-                }
-                else if(c == 44){
-                    yyval->i = atoi(yyval->si.c_str());
                     yyval->type = s;
                     return (true);
-                    //printf("Adress: %s%d\n", yyval.s.c_str(), yyval.i);
-                    //s = L_START;
+                    //printf("IDENT: %s\n", yyval.s.c_str());
                 }
                 else{
-                    printf("ERROR input\n");
-                    s = L_START;
-                }
-                break;
-            case L_VARIABLE:
-                if (isalpha(c)){
-                    yyval->s.append(1, c);
-                }
-                else if(c == 61){
+                    ungetc(c, inf);
                     yyval->type = s;
+                    yyval->i = atoi(yyval->s.c_str());
                     return (true);
-                    //printf("Variable: %s\n", yyval.s.c_str());
-                    //s = L_START;
-                }
-                else{
-                    printf("ERROR input\n");
-                    s = L_START;
                 }
                 break;
         }
 
     }
-
-    yyval->type = L_FILEEND;
-    return true;
 
 }
 
