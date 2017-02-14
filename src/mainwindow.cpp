@@ -156,20 +156,16 @@ void MainWindow::on_actionLoad_Savegame_triggered()
         if ((m_game->load(filenamestr, returnmsg)) == true)
         {
             //Loesche altes Spielbrett
-            delete m_qboard;
+            //delete m_qboard;
 
             // Initialisiere das Spielbrett
-            m_qboard = new QBoard(m_game->getBoard());
+            //m_qboard = new QBoard(m_game->getBoard());
 
             // Fuege QBoard an Layout an
-            ui->layoutBoard->addWidget(m_qboard);
+            //ui->layoutBoard->addWidget(m_qboard);
 
             m_qboard->update();
 
-        }
-        else
-        {
-           QMessageBox::information(this, tr("File load"), "Error");
         }
 
         returnmsgqstring = QString::fromStdString(returnmsg);
