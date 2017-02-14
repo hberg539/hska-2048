@@ -64,35 +64,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 /**
- * @brief Maps keypress events to game directions,
- *        updates gui output, points and displays
- *        a win/lost dialog
- * @param k
+ * @brief Update Board, calculate points and check if game is won or lost
  */
-void MainWindow::handleKeyPress(QKeyEvent *k)
-{   
+void MainWindow::updateGame()
+{
     // Spielstatus davor
     Game::State game_state = m_game->getState();
-
-    // Fuehre Bewegung durch
-    switch (k->key())
-    {
-    case Qt::Key_Up:
-        m_game->handleMove(Board::Direction::UP);
-        break;
-
-    case Qt::Key_Left:
-        m_game->handleMove(Board::Direction::LEFT);
-        break;
-
-    case Qt::Key_Right:
-        m_game->handleMove(Board::Direction::RIGHT);
-        break;
-
-    case Qt::Key_Down:
-        m_game->handleMove(Board::Direction::DOWN);
-        break;
-    }
 
     // Aktualisiere Widget
     m_qboard->update();
@@ -113,6 +90,38 @@ void MainWindow::handleKeyPress(QKeyEvent *k)
     {
         QMessageBox::information(this, "Verloren!", "Spiel verloren!");
     }
+}
+
+/**
+ * @brief Maps keypress events to game directions,
+ *        updates gui output, points and displays
+ *        a win/lost dialog
+ * @param k
+ */
+void MainWindow::handleKeyPress(QKeyEvent *k)
+{   
+    // Fuehre Bewegung durch
+    switch (k->key())
+    {
+    case Qt::Key_Up:
+        m_game->handleMove(Board::Direction::UP);
+        break;
+
+    case Qt::Key_Left:
+        m_game->handleMove(Board::Direction::LEFT);
+        break;
+
+    case Qt::Key_Right:
+        m_game->handleMove(Board::Direction::RIGHT);
+        break;
+
+    case Qt::Key_Down:
+        m_game->handleMove(Board::Direction::DOWN);
+        break;
+    }
+
+    // Update Game
+    updateGame();
 }
 
 /**
@@ -164,8 +173,7 @@ void MainWindow::on_actionLoad_Savegame_triggered()
             // Fuege QBoard an Layout an
             //ui->layoutBoard->addWidget(m_qboard);
 
-            m_qboard->update();
-
+            updateGame();
         }
 
         returnmsgqstring = QString::fromStdString(returnmsg);

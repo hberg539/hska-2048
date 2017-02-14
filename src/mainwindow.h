@@ -30,6 +30,7 @@ public:
     ~MainWindow();
 
     void handleKeyPress(QKeyEvent * event);
+    void updateGame();
 
 public slots:
      void recvKeyEvent(QKeyEvent * event);
@@ -40,7 +41,6 @@ protected:
 private slots:
     void on_actionStart_Solver_triggered();
     void on_actionNew_Game_triggered();
-
     void on_actionLoad_Savegame_triggered();
 
 private:
