@@ -1,3 +1,8 @@
+/**
+ * @file gui/qboard.h
+ * @brief Graphical proxy class for core/board.h
+ */
+
 #ifndef QBOARD_H
 #define QBOARD_H
 
@@ -9,6 +14,9 @@
 #include "core/board.h"
 #include "gui/qtile.h"
 
+/**
+ * @brief QBoard class, Graphical proxy class for core/board.h
+ */
 class QBoard : public QWidget
 {
     Q_OBJECT

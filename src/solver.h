@@ -1,3 +1,9 @@
+/**
+ * @file solver.h
+ * @brief Class with optimized methods for solving the game.
+ *        Algorithms are implemented in worker.h
+ */
+
 #ifndef SOLVER_H
 #define SOLVER_H
 
@@ -10,6 +16,9 @@
 typedef std::vector<std::vector<int> > T_BOARD;
 typedef std::pair<unsigned int, unsigned int> T_CORD;
 
+/**
+ * @brief Solver Class, contains optimized methods for solving the game
+ */
 class Solver
 {
 public:

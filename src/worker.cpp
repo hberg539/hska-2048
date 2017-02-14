@@ -2,7 +2,8 @@
 
 Worker::Worker() :
     m_enabled   (false),
-    m_single    (false)
+    m_single    (false),
+    m_num_cycles (0)
 {
     srand(time(0));
 }
@@ -11,6 +12,10 @@ void Worker::run()
 {
     Solver solva(0);
     Command lastdirc = Command::MOVE_DOWN;
+
+    m_num_cycles = 0;
+    unsigned int x = 0;
+    unsigned int points_last = 0;
     while (m_enabled)
     {
         // Start counter
@@ -19,6 +24,9 @@ void Worker::run()
 
         // Command
         Command command = Command::IDLE;
+
+        // Store current cycle count
+        uint64_t cycles_start = __rdtsc();
 
         // Run Alogrithm
         switch (m_algorithm_selected)
@@ -36,6 +44,20 @@ void Worker::run()
                 printf("Hallo Right\n");
                 break;
         }
+
+        // Add to cycle counter
+        m_num_cycles += __rdtsc() - cycles_start;
+
+        // Output
+        unsigned int points = m_game->getPoints();
+        x += points - points_last;
+        if (x > 20)
+        {
+            std::cout << points << "\t" << m_num_cycles << std::endl;
+            x = 0;
+        }
+
+        points_last = points;
 
         // Apply command
         switch (command)
@@ -103,6 +125,8 @@ void Worker::run()
             QThread::msleep(m_interval - update_ms);
         }
     }
+
+    std::cout << "number of cycles: " << m_num_cycles << std::endl;
 
     m_enabled = false;
 }

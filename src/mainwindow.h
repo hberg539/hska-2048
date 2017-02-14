@@ -1,3 +1,8 @@
+/**
+ * @file mainwindow.h
+ * @brief Main Window
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -13,6 +18,9 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief MainWindows class
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

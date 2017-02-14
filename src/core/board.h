@@ -1,3 +1,9 @@
+/**
+ * @file core/board.h
+ * @brief Class represents the board of the game.
+ *        Uses tiles (core/tile.h).
+ */
+
 #ifndef BOARD_H
 #define BOARD_H
 
@@ -8,11 +14,8 @@
 #include <iterator>
 
 /**
- * @brief Board Klasse
- *
- * Die Spielbrett-Klasse verwaltet alle Kasten (Tiles).
+ * @brief Board Class, manages all tiles.
  */
-
 class Board
 {
 public:

@@ -8,6 +8,10 @@
 #include<cctype>
 #include <stdlib.h>
 
+/**
+ * @brief Constructor for the game class.
+ * @param dimension Dimension of the board (e.g. 4, 4x4).
+ */
 Game::Game(int dimension)
     : m_state   (Game::State::GAME_RUNNING)
 {
@@ -18,7 +22,11 @@ Game::Game(int dimension)
     resetGame(dimension);
 }
 
-
+/**
+ * @brief Checks if a move is possible and applys the direction. Also adds a new random tile.
+ * @param direction Direction to apply.
+ * @return True, when a move was done, otherwhise False.
+ */
 bool Game::handleMove(Board::Direction direction)
 {
     // Testen, ob ueberhaupt eine Bewegung moeglich ist
@@ -48,6 +56,9 @@ bool Game::handleMove(Board::Direction direction)
     return true;
 }
 
+/**
+ * @brief Clears the board, reset the game state and adds random tiles.
+ */
 void Game::resetGame(void)
 {
     // Clear board
@@ -61,6 +72,10 @@ void Game::resetGame(void)
     m_board->addRandomTile();
 }
 
+/**
+ * @brief Resets the game like resetGame(void), but with dimension update.
+ * @param dimension Dimension of the board (e.g. 4, 4x4)
+ */
 void Game::resetGame(int dimension)
 {
     // Aendere dimension
@@ -70,6 +85,10 @@ void Game::resetGame(int dimension)
     resetGame();
 }
 
+/**
+ * @brief Checks if the game is won (one 2048 tile exists)
+ * @return True / False
+ */
 bool Game::isGameWon(void)
 {
     for (unsigned int i = 0; i < m_board->getDimension(); i++)
@@ -89,9 +108,12 @@ bool Game::isGameWon(void)
     return false;
 }
 
-// Gebe Punktestand zurueck
-// Original: Punkte entspricht den Wert aller Upgrades
-// Unsere Version: Einfach nur die Werte aller Tiles
+/**
+ * @brief Calculates the points for the game
+ * @return Points
+ *
+ * Sums the value of all tiles in the board.
+ */
 unsigned int Game::getPoints(void)
 {
     unsigned int points = 0;
@@ -109,6 +131,9 @@ unsigned int Game::getPoints(void)
     return points;
 }
 
+/**
+ * @brief Debug output of board. Not used in production.
+ */
 void Game::debugPrint(void)
 {
     std::cout << "Points: " << getPoints() << std::endl;

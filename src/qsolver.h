@@ -1,3 +1,8 @@
+/**
+ * @file qsolver.h
+ * @brief Qt proxy class for solver
+ */
+
 #ifndef QSOLVER_H
 #define QSOLVER_H
 
@@ -15,6 +20,9 @@ namespace Ui {
 class QSolver;
 }
 
+/**
+ * @brief QSolver class, Qt Dialog for solver.h
+ */
 class QSolver : public QDialog
 {
     Q_OBJECT

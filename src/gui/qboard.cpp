@@ -1,5 +1,9 @@
 #include "gui/qboard.h"
 
+/**
+ * @brief Constructor for class QBoard
+ * @param board
+ */
 QBoard::QBoard(Board *board)
     : m_board   (board),
       m_layout  (NULL)
@@ -8,6 +12,9 @@ QBoard::QBoard(Board *board)
     init();
 }
 
+/**
+ * @brief Update dimension and initialize m_layout_tiles from m_board
+ */
 void QBoard::init(void)
 {
     // Loesche, sofern vorhanden, alte QTiles
@@ -27,6 +34,11 @@ void QBoard::init(void)
     }
 }
 
+/**
+ * @brief Update QBoard with new QTiles from m_board.
+ *
+ * Method is run everytime a move is applied.
+ */
 void QBoard::update(void)
 {
     // Loesche altes Layout, wenn es existiert
@@ -45,7 +57,7 @@ void QBoard::update(void)
 
     for (unsigned int i = 0; i < m_board->getDimension(); i++)
     {
-        for (unsigned j = 0; j < m_board->getDimension(); j++)
+        for (unsigned int j = 0; j < m_board->getDimension(); j++)
         {
             // Loesche alte QTile (sofern sich die Dimension nicht geaendert hat)
             if (!init_done) delete m_layout_tiles[i][j];

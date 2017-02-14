@@ -1,6 +1,10 @@
 #include "qsolver.h"
 #include "ui_solver.h"
 
+/**
+ * @brief Constructor of QSolver
+ * @param parent
+ */
 QSolver::QSolver(QWidget *parent) :
     QDialog(parent),
     ui                      (new Ui::QSolver),

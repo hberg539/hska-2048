@@ -1,3 +1,9 @@
+/**
+ * @file core/game.h
+ * @brief Main game class for the game 2048.
+ *        Contains one board (core/board.h).
+ */
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -15,6 +21,9 @@
 
 using namespace std;
 
+/**
+ * @brief Game class, manages the board, points, game state and loads savegames.
+ */
 class Game
 {
 public:

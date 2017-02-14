@@ -1,3 +1,8 @@
+/**
+ * @file gui/qtile.h
+ * @brief Graphical proxy class for core/qtile.h
+ */
+
 #ifndef QTILE_H
 #define QTILE_H
 
@@ -6,7 +11,9 @@
 #include <QGraphicsDropShadowEffect>
 #include "core/tile.h"
 
-
+/**
+ * @brief Tile class, Graphical proxy class for core/tile.h
+ */
 class QTile : public QLabel
 {
     Q_OBJECT

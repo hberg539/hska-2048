@@ -1,3 +1,8 @@
+/**
+ * @file definitions.h
+ * @brief Global definitions used in most classes
+ */
+
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 

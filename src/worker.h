@@ -1,3 +1,9 @@
+/**
+ * @file worker.h
+ * @brief Class which contains algorithms for solving the game.
+ *        Is run in QThread.
+ */
+
 #ifndef WORKER_H
 #define WORKER_H
 
@@ -9,7 +15,11 @@
 #include "core/game.h"
 #include "solver.h"
 #include "definitions.h"
+#include <intrin.h>
 
+/**
+ * @brief Worker class, contains algorithms for solving the game.
+ */
 class Worker : public QThread
 {
     Q_OBJECT
@@ -56,6 +66,9 @@ private:
 
     // Intervall
     unsigned int m_interval;
+
+    // Number of CPU cycles
+    uint64_t m_num_cycles;
 
     // Game Instanz
     Game * m_game;

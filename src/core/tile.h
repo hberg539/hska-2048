@@ -1,12 +1,14 @@
+/**
+ * @file core/tile.h
+ * @brief Class represents one tile of the game.
+ */
+
 #ifndef TILE_H
 #define TILE_H
 
 /**
- * @brief Tile Klasse
- *
- * Die Klasse repraesentiert ein "Kasten" (Tile) des Spielbrettes.
+ * @brief Tile Class, represents one tile of the game
  */
-
 class Tile
 {
 public:

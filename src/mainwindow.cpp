@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/**
+ * @brief Main Window of GUI
+ * @param parent Parent Widget
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow (parent),
     ui          (new Ui::MainWindow),
@@ -41,16 +45,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_newgame->setqboard(m_qboard);
 }
 
+/**
+ * @brief Receives QKeyEvent from external window (e.g. solver window)
+ * @param event
+ */
 void MainWindow::recvKeyEvent(QKeyEvent *event)
 {
     handleKeyPress(event);
 }
 
+/**
+ * @brief Receives QKeyEvent from keypress on keyboard
+ * @param event
+ */
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     handleKeyPress(event);
 }
 
+/**
+ * @brief Maps keypress events to game directions,
+ *        updates gui output, points and displays
+ *        a win/lost dialog
+ * @param k
+ */
 void MainWindow::handleKeyPress(QKeyEvent *k)
 {   
     // Spielstatus davor
@@ -97,16 +115,25 @@ void MainWindow::handleKeyPress(QKeyEvent *k)
     }
 }
 
+/**
+ * @brief Destructor of MainWindow (gets called when windows is closed)
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief Opens ui_newgame window (menubar)
+ */
 void MainWindow::on_actionNew_Game_triggered()
 {
     ui_newgame->show();
 }
 
+/**
+ * @brief Opens ui_solver window (menubar)
+ */
 void MainWindow::on_actionStart_Solver_triggered()
 {
     ui_solver->show();

@@ -1,5 +1,9 @@
 #include "gui/qtile.h"
 
+/**
+ * @brief Constructor for QTile
+ * @param tile Input is a Tile (core/tile.h)
+ */
 QTile::QTile(Tile * tile)
     : m_tile (tile)
 {
@@ -10,6 +14,9 @@ QTile::QTile(Tile * tile)
     update();
 }
 
+/**
+ * @brief Update the color and styling when the value of a tile changes.
+ */
 void QTile::update()
 {
     // Farb-Kodierung schamlos von der Original-Implementierung geklaut

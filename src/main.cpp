@@ -7,7 +7,6 @@
 #include <QTextStream>
 #include <cstdlib>
 #include <ctime>
-
 #include "solver.h"
 
 int main(int argc, char *argv[])

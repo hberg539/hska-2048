@@ -3,7 +3,10 @@
 #include <iostream>
 #include <algorithm>
 
-// Konstruktor
+/**
+ * @brief Constructor for Board
+ * @param dimension Size of board (e.g. 4 for 4x4)
+ */
 Board::Board(int dimension)
     : m_dimension(dimension)
 {
@@ -16,7 +19,10 @@ Board::Board(int dimension)
     clear();
 }
 
-// Kopier-Konstruktor
+/**
+ * @brief Copy constructor for board that copies the m_board member.
+ * @param ref
+ */
 Board::Board(const Board &ref)
 {
     // Initilisiere Dimension
@@ -39,7 +45,10 @@ Board::Board(const Board &ref)
     }
 }
 
-// Gebe Spielbrett als int-Vector zurueck
+/**
+ * @brief Returns the board as int vector
+ * @return int vector
+ */
 std::vector<std::vector<int> > Board::getBoardAsInt(void)
 {
     std::vector<std::vector<int> > boardInt(m_dimension, std::vector<int>(m_dimension));
@@ -62,7 +71,11 @@ std::vector<std::vector<int> > Board::getBoardAsInt(void)
     return boardInt;
 }
 
-// Bewege das Spielbrett
+/**
+ * @brief Apply a move direction to the board
+ * @param dir Direction for the tiles to move
+ * @return True when any tiles has been moved, otherwise False
+ */
 bool Board::move(Direction dir)
 {
     // Rotiere Spielfeld in eine einheitliche Richtung
@@ -110,7 +123,12 @@ bool Board::move(Direction dir)
     return (move_cnt > 0) ? true : false;
 }
 
-// Setze Tile
+/**
+ * @brief Set value of a tile
+ * @param i coordinate i
+ * @param j coordinate j
+ * @param value Tile value
+ */
 void Board::setTile(unsigned int i, unsigned int j, int value)
 {
     if (m_board[i][j] == NULL)
@@ -123,7 +141,10 @@ void Board::setTile(unsigned int i, unsigned int j, int value)
     }
 }
 
-// Testen ob ein weiterer Spielzug moeglich ist
+/**
+ * @brief Test if any tile can be moved in the board
+ * @return True when a tile can be moved, otherwise False
+ */
 bool Board::isAnotherMovePossible(void)
 {
     // Aktuelles Spielbrett kopieren
@@ -139,8 +160,16 @@ bool Board::isAnotherMovePossible(void)
     return move_possible;
 }
 
-// Bewege ein einzelnes Tile
-// Gibt true zurueck, wenn eine Bewegung ausgefuehrt wurde
+/**
+ * @brief Main method for calculation moves and collisions with other tiles
+ * @param pos_i coordinate i
+ * @param pos_j coordinate j
+ * @return True, when a move was done, otherwise False
+ *
+ * In this method a tile with given coordinates (i,j)
+ * starts to "fall" to the ground. Any collisions (and merges) are
+ * handled here.
+ */
 bool Board::moveTile(unsigned int pos_i, unsigned int pos_j)
 {
     // Ueberspringe leeres Tile
@@ -220,7 +249,9 @@ bool Board::moveTile(unsigned int pos_i, unsigned int pos_j)
     return false;
 }
 
-// Rotiere Spielbrett (in Richtung Uhrzeigersinn)
+/**
+ * @brief Rotate the whole board 90° clockwise
+ */
 void Board::rotate()
 {
     // Transpose the matrix
@@ -242,7 +273,12 @@ void Board::rotate()
     }
 }
 
-// Neues zufaelliges Tile hinzufuegen
+/**
+ * @brief Add a new random tile to the board.
+ *
+ * Probability for 2: 90%
+ * Probability for 4: 10%
+ */
 void Board::addRandomTile(void)
 {
     T_CORD new_pos = findFreePosition();
@@ -255,7 +291,9 @@ void Board::addRandomTile(void)
     }
 }
 
-// Spielbrett leeren
+/**
+ * @brief Clear the board of all tiles
+ */
 void Board::clear()
 {
     // Setzte NULL als default
@@ -269,7 +307,10 @@ void Board::clear()
 }
 
 
-// Dimension aktualisieren
+/**
+ * @brief Update dimension of the board
+ * @param dimension Dimension of board (e.g. 4 for 4x4)
+ */
 void Board::updateDimension(const unsigned int dimension)
 {
     m_dimension = dimension;
@@ -284,7 +325,10 @@ void Board::updateDimension(const unsigned int dimension)
     }
 }
 
-// Gibt ein freie Position als Pair zurueck (i,j)
+/**
+ * @brief Find a coordinate in the board without any tile.
+ * @return coordinates (i,j)
+ */
 T_CORD Board::findFreePosition(void)
 {
     std::vector<T_CORD> free_positions;
