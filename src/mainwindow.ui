@@ -104,7 +104,6 @@
     </property>
     <addaction name="actionNew_Game"/>
     <addaction name="separator"/>
-    <addaction name="actionSave_Savegame"/>
     <addaction name="actionLoad_Savegame"/>
     <addaction name="separator"/>
     <addaction name="actionExitr"/>
@@ -127,7 +126,7 @@
   </widget>
   <action name="actionLoad_Savegame">
    <property name="text">
-    <string>Load Gamestate..</string>
+    <string>Load Game</string>
    </property>
   </action>
   <action name="actionSave_Savegame">

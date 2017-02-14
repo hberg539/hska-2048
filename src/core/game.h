@@ -1,7 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+#define C_STRING1  3
+#define C_IDENTIFIER  4
+#define C_INTEGER1  5
+
 #include "core/board.h"
+#include "core/cparser.h"
 #include <iostream>
 #include<string>
 #include<stdio.h>
@@ -56,9 +61,6 @@ public:
 
     //Load Game
     bool load(string filename, string &loadmsg);
-
-    //Lexikal Analyser
-    bool lexikal(FILE *inf, tyyval *yyval);
 
 private:
 

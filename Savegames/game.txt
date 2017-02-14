@@ -1,9 +1,9 @@
-size 4;
+size 4;			//Spielgroesse
 
-x0, y0, z2048
-x0, y2, z2
-x1, y1, z2049
-x2, y0, z4096
-x3, y0, z128
-x3, y1, z1024,,,,,,,,
+x0, y0, z2048;		//Spieldaten
+x0, y2, z2;
+x1, y1, z2049;
+x2, y0, z4096;
+x3, y0, z128;
+x3, y1, z1024;
 

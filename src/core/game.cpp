@@ -1,4 +1,5 @@
 #include "core/game.h"
+#include "core/cparser.h"
 
 #include<stdio.h>
 #include<iostream>
@@ -143,191 +144,66 @@ void Game::debugPrint(void)
     std::cout << "-" << std::endl;
 }
 
+/**
+ * @brief Load gamedata from file
+ * @param filename
+ * @param loadmsg Give the result of the load process (not) successful
+ * @return
+ */
 bool Game::load(string filename, string &loadmsg)
 {
-    tyyval result;
+    CParser filescanner;
+    string temp;
     FILE *loadfile;
-    int x, y, z;
+    int x, y, z, tok;
+
 
     loadfile = fopen(filename.c_str(), "r");
 
     if(loadfile==NULL){
-        loadmsg = "Error: Fileloading not sucesfull!";
+        loadmsg = "Error: Fileloading not successful!";
         return false;
     }
 
+    filescanner.InitParse(loadfile, stderr, stdout);
+
+    tok = filescanner.yyparse();
+
     do {
-        lexikal(loadfile, &result);
-        if (result.type == L_IDENT && result.s == "size"){
-            lexikal(loadfile, &result);
-            if (result.type == L_INT){
-                m_board->updateDimension(result.i);            //Quadratisches Spielfeld
+
+        if (tok == C_IDENTIFIER && filescanner.yylval.s == "size"){
+            tok = filescanner.yyparse();
+            if (tok == C_INTEGER1){
+                m_board->updateDimension(filescanner.yylval.i);            //Quadratisches Spielfeld
                 m_board->clear();
             }
+            else{
+                loadmsg = "Error: Format Error";
+                return false;
+            }
         }
-        else if (result.type == L_IDENT && result.s[0] == 'x'){
-            string temp = result.s.substr(1);
+        else if (tok == C_IDENTIFIER && filescanner.yylval.s.at(0) == 'x'){
+            temp = filescanner.yylval.s.substr(1);
             x = atoi(temp.c_str()) ;
         }
-        else if (result.type == L_IDENT && result.s[0] == 'y'){
-            string temp = result.s.substr(1);
+        else if (tok == C_IDENTIFIER && filescanner.yylval.s.at(0) == 'y'){
+            temp = filescanner.yylval.s.substr(1);
             y = atoi(temp.c_str()) ;
         }
-        else if (result.type == L_IDENT && result.s[0] == 'z'){
-            string temp = result.s.substr(1);
+        else if (tok == C_IDENTIFIER && filescanner.yylval.s.at(0) == 'z'){
+            temp = filescanner.yylval.s.substr(1);
             z = atoi(temp.c_str()) ;
             m_board->setTile(y, x, z);
         }
+
+        tok = filescanner.yyparse();        //Next
     }
-    while (result.type != L_FILEEND);
+    while (tok != 0);
 
     fclose(loadfile);
 
-
-
-//    ifstream infile (filename.c_str());
-//    int MAX=80;
-//    char buffer[MAX+1];
-//    int x, y, z, found, xsize, ysize;
-
-//    //Erste Zeile wird eingelesen und Spielfeld Groesse ausglesen
-
-//    infile.getline(buffer, MAX);
-
-//    found = string(buffer).find("x=") + 2;
-//    if (isdigit(buffer[found]))
-//    {
-//        xsize = atoi (buffer + found);
-//    }
-
-//    found = string(buffer).find("y=") + 2;
-//    if (isdigit(buffer[found]))
-//    {
-//        ysize = atoi (buffer + found);
-//    }
-
-//    m_board->updateDimension(xsize);            //Quadratisches Spielfeld
-//    m_board->clear();
-
-
-//    infile.getline(buffer, MAX);            //Zweite Zeile ueberspringen
-
-//    //Es werden solange die Spielfelddaten eingelesen bis das Ende erreicht wurde
-
-//    while (!infile.eof())
-//    {
-//        infile.getline(buffer, MAX);
-
-//        found = string(buffer).find("x") + 1;
-
-//        if (isdigit(buffer[found]))
-//        {
-//            x = atoi (buffer + found);      //String in Zahl umwandeln
-//        }
-
-//        found = string(buffer).find("y") + 1;
-//        if (isdigit(buffer[found]))
-//        {
-//            y = atoi (buffer + found);
-//        }
-
-//        found = string(buffer).find("z=") + 2;
-//        if (isdigit(buffer[found]))
-//        {
-//            z = atoi (buffer + found);
-//        }
-
-//        if ((x >= xsize) || (y >= xsize))
-//        {
-//            loadmsg = "Error: To much data!";
-//            return false;
-//        }
-//        else
-//        {
-//            m_board->setTile(y, x, z);
-//        }
-
-//    }
-
-    loadmsg = "Loading sucessfull!";
+    loadmsg = "Loading successful!";
     return true;
-
-}
-
-bool Game::lexikal(FILE *inf, tyyval *yyval)
-{
-    int c = 0;
-    lexstate s;
-    s = L_START;
-
-
-    while(1)
-    {
-        c = getc(inf);
-
-        switch(s){
-            case L_START:
-                yyval->s = "";
-               // yyval->si = "";
-                yyval->i = 0;
-                if (isdigit(c)){
-                    s = L_INT;
-                    yyval->s.append (1, c);
-                }
-                else if (isalpha(c)){
-                    s = L_IDENT;
-                    yyval->s.append (1, c);
-                }
-                else if (isspace(c) || c == ','){
-                    break;
-                }
-                else if (c == EOF){
-                    yyval->type = L_FILEEND;
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            break;
-            case L_INT:
-                if (isdigit(c)){
-                    s = L_INT;
-                    yyval->s.append (1, c);
-                }
-                else if(isspace(c) || c == ','){
-                    //s = L_START;
-                    yyval->type = s;
-                    yyval->i = atoi(yyval->s.c_str());
-                    return (true);
-                    //printf("Number: %d\n", yyval.i);
-                }
-                else{
-                    ungetc(c, inf);
-                    yyval->type = s;
-                    yyval->i = atoi(yyval->s.c_str());
-                    return (true);
-                    }
-                break;
-            case L_IDENT:     //Hier wird geprueft, ob es sich um eine Adresse oder Variable handelt
-                if (isdigit(c) || isalpha(c)){
-                    yyval->s.append (1, c);
-                }
-                else if (isspace(c) || c == ','){          //Fuer Variablen mit einem Buchstaben, 61= "="
-                    //s = L_START;
-                    yyval->type = s;
-                    return (true);
-                    //printf("IDENT: %s\n", yyval.s.c_str());
-                }
-                else{
-                    ungetc(c, inf);
-                    yyval->type = s;
-                    yyval->i = atoi(yyval->s.c_str());
-                    return (true);
-                }
-                break;
-        }
-
-    }
 
 }
 

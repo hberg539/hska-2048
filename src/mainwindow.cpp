@@ -112,6 +112,9 @@ void MainWindow::on_actionStart_Solver_triggered()
     ui_solver->show();
 }
 
+/**
+ * @brief Open fileload dialog
+ */
 void MainWindow::on_actionLoad_Savegame_triggered()
 {
     string filenamestr, returnmsg;
@@ -139,7 +142,7 @@ void MainWindow::on_actionLoad_Savegame_triggered()
         }
         else
         {
-
+           QMessageBox::information(this, tr("File load"), "Error");
         }
 
         returnmsgqstring = QString::fromStdString(returnmsg);

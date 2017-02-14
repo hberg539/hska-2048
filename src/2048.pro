@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     newgame.cpp \
     qsolver.cpp \
     worker.cpp \
-    solver.cpp
+    solver.cpp \
+    core/cparser.cpp
 
 HEADERS  += mainwindow.h \
     Definitions.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     solver.h \
     newgame.h \
     qsolver.h \
-    worker.h
+    worker.h \
+    core/cparser.h
 
 FORMS    += mainwindow.ui \
     solver.ui \
