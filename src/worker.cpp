@@ -138,7 +138,8 @@ Command Worker::workerRightDown(Solver &solva)
         Direction = Solver::Direction::LEFT;
         solva.setlastDirection(0);
     }
-    else if(solva.compareTiles(board)&&solva.compareNumberTiles(board,0)&& solva.getlastDirection()==1 && solva.checkRowTiles(board))
+    else if(solva.compareDiagonalTiles(board)&&solva.compareNumberTiles(board,0)
+            && solva.getlastDirection()==1 && solva.checkRowMerge(board))
     {
         printf("compare Tiles success\n");
         Direction = Solver::Direction::LEFT;

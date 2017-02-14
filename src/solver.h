@@ -42,7 +42,7 @@ public:
     bool mergevertical(const T_BOARD &board);
 
     // Check if Tiles in a row can be merge
-    bool checkRowTiles(const T_BOARD &board);
+    bool checkRowMerge(const T_BOARD &board);
 
     // Test if any move is possible
     bool isMovePossible(const T_BOARD &board);
@@ -52,7 +52,7 @@ public:
     //
     bool compareNumberTiles(const T_BOARD &board,int mode);
     // Compare two diagonal tiles
-    bool compareTiles(const T_BOARD &board);
+    bool compareDiagonalTiles(const T_BOARD &board);
 
     // Test Direction
     unsigned int evaluateMove(const T_BOARD &board, Direction direction);

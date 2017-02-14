@@ -124,25 +124,39 @@ unsigned int Solver::randomRun(const T_BOARD & board, Direction direction)
     return getPoints(tmpboard);
 }
 
-bool Solver::compareTiles(const T_BOARD & board)
+/**
+ * @brief Checks the diagonal Tiles from left to right
+ * @param Board from the running game
+ * @return If the diagonal Tiles have the same value return true,
+ *         else return false
+ */
+bool Solver::compareDiagonalTiles(const T_BOARD & board)
 {
-    printf("Tile=%d\n",board[board.size()-1][board.size()-1]);
-    if((board[board.size()-1][board.size()-2]==board[board.size()-2][board.size()-1]
-       && board[board.size()-1][board.size()-2] != NULL
-        && board[board.size()-1][board.size()-1]>=board[board.size()-1][board.size()-2])
+    //printf("Tile=%d\n",board[board.size()-1][board.size()-1]);
+    for(int a=1;a<board.size();a++)
+    {
+    if((board[board.size()-a][board.size()-(a+1)]==board[board.size()-(a+1)][board.size()-a]
+       && board[board.size()-a][board.size()-(a+1)] != NULL
+        && board[board.size()-a][board.size()-a]>=board[board.size()-a][board.size()-(a+1)]))
+        /*
        || (board[board.size()-2][board.size()-2]==board[board.size()-3][board.size()-1]
            && board[board.size()-2][board.size()-2] != NULL))
-        //
+        */
         //&& board[board.size()-2][board.size()-2]>=board[board.size()-2][board.size()-3]
         return true;
-    else
+    }
         return false;
 
 }
 
-bool Solver::checkRowTiles(const T_BOARD &board)
+/**
+ * @brief Checks if Tiles in a Row are mergeable
+ * @param Board from the running Game
+ * @return If Tiles are mergable return false, else true
+ */
+bool Solver::checkRowMerge(const T_BOARD &board)
 {
-    for(int j=board.size()-2;j<board.size();j++)
+    for(unsigned int j=board.size()-2;j<board.size();j++)
     {
         for(int l=1;l<board.size();l++)
         {
@@ -153,12 +167,17 @@ bool Solver::checkRowTiles(const T_BOARD &board)
     return true;
 }
 
-
+/**
+ * @brief Count the number of tiles in a row
+ * @param board
+ * @param mode
+ * @return
+ */
 bool Solver::compareNumberTiles(const T_BOARD &board, int mode)
 {
     unsigned int i=0,k=0,l=0,j=0;
 
-    printf("board isze = %d\n",board.size());
+    printf("board size = %d\n",board.size());
     for(int a=0;a<board.size();a++)
     {
     if(board[board.size()-2][a]!=NULL)
@@ -183,6 +202,7 @@ bool Solver::compareNumberTiles(const T_BOARD &board, int mode)
     }
     else
         return false;
+    return false;
 }
 
 void Solver::addRandomTile(T_BOARD & board)

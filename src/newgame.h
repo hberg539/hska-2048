@@ -29,6 +29,7 @@ public:
 
 private slots:
         void on_pushButton_newgame_clicked();
+        void on_pushButton_abbrechen_clicked();
 private:
     Ui::newgame *ui;
     Game * m_game;
