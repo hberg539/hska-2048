@@ -43,4 +43,4 @@ FORMS    += mainwindow.ui \
     solver.ui \
     newgame.ui
 
-DISTFILES += \
+RESOURCES += res.qrc
