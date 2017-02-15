@@ -82,7 +82,7 @@ void QTile::update()
         case 1024: {
             QGraphicsDropShadowEffect *dse = new QGraphicsDropShadowEffect();
             dse->setColor(Qt::yellow);
-            dse->setBlurRadius(30);
+            dse->setBlurRadius(20);
             dse->setOffset(-1);
             setGraphicsEffect(dse);
             setStyleSheet("QTile { background: rgb(237,204,97); color: rgb(255,255,255); font: bold; border-radius: 10px; font: 25pt; }");
@@ -114,7 +114,7 @@ void QTile::update()
             {
                 QGraphicsDropShadowEffect *dse = new QGraphicsDropShadowEffect();
                 dse->setColor(Qt::blue);
-                dse->setBlurRadius(50);
+                dse->setBlurRadius(10);
                 dse->setOffset(-1);
                 setGraphicsEffect(dse);
                 setStyleSheet("QTile { background: rgb(0,149,255); color: rgb(255,255,255); font: bold; border-radius: 10px; font: 25pt; }");
