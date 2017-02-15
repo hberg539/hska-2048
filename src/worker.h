@@ -70,6 +70,9 @@ private:
     // Number of CPU cycles
     uint64_t m_num_cycles;
 
+    // Number of turns
+    uint64_t m_num_turns;
+
     // Game Instanz
     Game * m_game;
 

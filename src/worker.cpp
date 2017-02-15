@@ -3,7 +3,8 @@
 Worker::Worker() :
     m_enabled   (false),
     m_single    (false),
-    m_num_cycles (0)
+    m_num_cycles (0),
+    m_num_turns  (0)
 {
     srand(time(0));
 }
@@ -13,9 +14,6 @@ void Worker::run()
     Solver solva(0);
     Command lastdirc = Command::MOVE_DOWN;
 
-    m_num_cycles = 0;
-    unsigned int x = 0;
-    unsigned int points_last = 0;
     while (m_enabled)
     {
         // Start counter
@@ -46,17 +44,10 @@ void Worker::run()
 
         // Add to cycle counter
         m_num_cycles += __rdtsc() - cycles_start;
+        m_num_turns++;
 
         // Output
-        unsigned int points = m_game->getPoints();
-        x += points - points_last;
-        if (x > 20)
-        {
-            std::cout << points << "\t" << m_num_cycles << std::endl;
-            x = 0;
-        }
-
-        points_last = points;
+        std::cout << m_num_turns << "\t" << m_game->getPoints() << "\t" << m_num_cycles << std::endl;
 
         // Apply command
         switch (command)
