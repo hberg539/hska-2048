@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow (parent),
     ui          (new Ui::MainWindow),
     ui_solver   (new QSolver(this)),
-    ui_newgame  (new newgame(this))
+    ui_newgame  (new newgame(this)),
+    ui_about    (new about(this))
 {
     ui->setupUi(this);
 
@@ -146,6 +147,11 @@ void MainWindow::on_actionNew_Game_triggered()
 void MainWindow::on_actionStart_Solver_triggered()
 {
     ui_solver->show();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    ui_about->show();
 }
 
 /**

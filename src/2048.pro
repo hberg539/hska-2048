@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     qsolver.cpp \
     worker.cpp \
     solver.cpp \
-    core/cparser.cpp
+    core/cparser.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     Definitions.h \
@@ -37,10 +38,12 @@ HEADERS  += mainwindow.h \
     newgame.h \
     qsolver.h \
     worker.h \
-    core/cparser.h
+    core/cparser.h \
+    about.h
 
 FORMS    += mainwindow.ui \
     solver.ui \
-    newgame.ui
+    newgame.ui \
+    about.ui
 
 RESOURCES += res.qrc

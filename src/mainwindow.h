@@ -13,6 +13,7 @@
 #include "core/game.h"
 #include "qsolver.h"
 #include "newgame.h"
+#include "about.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +44,8 @@ private slots:
     void on_actionNew_Game_triggered();
     void on_actionLoad_Savegame_triggered();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -54,6 +57,9 @@ private:
 
     // Spiel
     Game * m_game;
+
+    //About Window
+    about * ui_about;
 
     // Spielbrett
     QBoard * m_qboard;

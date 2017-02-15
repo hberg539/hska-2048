@@ -23,15 +23,12 @@ Solver::Direction Solver::getDirection(int lastDirection)
 
 int Solver::getlastDirection()
 {
-    printf("return lastdirc = %d\n",this->lastDirection);
     return this->lastDirection;
 }
 
 void Solver::setlastDirection(int lastDirection)
 {
-    printf("lastDirection=%d\n",lastDirection);
     this->lastDirection=lastDirection;
-    printf("thisdirc=%d\n",this->lastDirection);
 }
 
 bool Solver::mergevertical(const T_BOARD & board)
@@ -132,23 +129,22 @@ unsigned int Solver::randomRun(const T_BOARD & board, Direction direction)
  */
 bool Solver::compareDiagonalTiles(const T_BOARD & board)
 {
-    //printf("Tile=%d\n",board[board.size()-1][board.size()-1]);
     for(int a=1;a<board.size();a++)
     {
-    if((board[board.size()-a][board.size()-(a+1)]==board[board.size()-(a+1)][board.size()-a]
-       && board[board.size()-a][board.size()-(a+1)] != NULL
-        && board[board.size()-a][board.size()-a]>=board[board.size()-a][board.size()-(a+1)]))
-        /*
-       || (board[board.size()-2][board.size()-2]==board[board.size()-3][board.size()-1]
-           && board[board.size()-2][board.size()-2] != NULL))
-        */
-        //&& board[board.size()-2][board.size()-2]>=board[board.size()-2][board.size()-3]
-        return true;
-    }
-        return false;
+        for(int j=1;j<board.size();j++)
+        {
+            if((board[board.size()-a][board.size()-(j+1)]==board[board.size()-(a+1)][board.size()-j]
+                && board[board.size()-a][board.size()-(1+j)] != NULL)
+                )
+                    return true;
+                    //&& board[board.size()-a][board.size()-j]>=board[board.size()-a][board.size()-(a+j)])
+
+
+        }
+                return false;
 
 }
-
+}
 /**
  * @brief Checks if Tiles in a Row are mergeable
  * @param Board from the running Game
@@ -177,7 +173,6 @@ bool Solver::compareNumberTiles(const T_BOARD &board, int mode)
 {
     unsigned int i=0,k=0,l=0,j=0;
 
-    printf("board size = %d\n",board.size());
     for(int a=0;a<board.size();a++)
     {
     if(board[board.size()-2][a]!=NULL)
@@ -187,7 +182,7 @@ bool Solver::compareNumberTiles(const T_BOARD &board, int mode)
     if(board[board.size()-3][a]!=NULL)
         k++;
     }
-    printf("i=%d j=%d\n",i,j);
+
     if(j==board.size())
     {
         if(mode ==0)

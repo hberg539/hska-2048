@@ -41,7 +41,6 @@ void Worker::run()
 
             case Algorithm::ALGO_RIGHT_DOWN:
                 command = workerRightDown(solva);
-                printf("Hallo Right\n");
                 break;
         }
 
@@ -155,7 +154,7 @@ Command Worker::workerRightDown(Solver &solva)
      std::vector<std::vector<int> > board = m_game->getBoard()->getBoardAsInt();
 
     Solver::Direction Direction;
-    printf("if possible\n");
+
     if(!solva.isRightDownPossible(board))
     {
         //todo id last row is full move down otherwise move right
@@ -165,7 +164,7 @@ Command Worker::workerRightDown(Solver &solva)
     else if(solva.compareDiagonalTiles(board)&&solva.compareNumberTiles(board,0)
             && solva.getlastDirection()==1 && solva.checkRowMerge(board))
     {
-        printf("compare Tiles success\n");
+
         Direction = Solver::Direction::LEFT;
         solva.setlastDirection(3);
     }
@@ -185,7 +184,6 @@ Command Worker::workerRightDown(Solver &solva)
         }
     }
     //switch between right and down direction. otherwise go left.
-    printf("go direction\n");
     switch (Direction)
     {
         case Solver::Direction::LEFT:

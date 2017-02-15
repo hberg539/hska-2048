@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 /**
- * @brief Constructor for the game class.
+ * @brief Chhbonstructor for the game class.
  * @param dimension Dimension of the board (e.g. 4, 4x4).
  */
 Game::Game(int dimension)
