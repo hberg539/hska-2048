@@ -31,7 +31,7 @@ public:
     // Easter Egg
     void mouseDoubleClickEvent(QMouseEvent *event)
     {   Q_UNUSED(event);
-        if (m_tile->getValue() != 2048) return;
+        if (m_tile == NULL || m_tile->getValue() != 2048) return;
         QDialog * buttonBox = new QDialog();
         buttonBox->setStyleSheet("border-image: url(:/res/pepe.jpg) 0 0 0 0 stretch stretch;");
         buttonBox->showFullScreen();
