@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root text="&#34;Right Down&#34;" comment="&#34;&#34;" color="ffffff" type="program" style="nice">
+	<children>
+		<alternative text="&#34;Is move down or right possible?&#34;" comment="&#34;&#34;" color="ffffff">
+			<qTrue>
+				<alternative text="&#34;(Dialog Tiles equal) &#34;,&#34;and (upper amount of row = board_size - 1) &#34;,&#34;and (lower amount of row = board_size)                    &#34;" comment="&#34;&#34;" color="ffffff">
+					<qTrue>
+						<instruction text="&#34;Move left&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+					</qTrue>
+					<qFalse>
+						<alternative text="&#34;Vertical Tiles are mergable?&#34;" comment="&#34;&#34;" color="ffffff">
+							<qTrue>
+								<instruction text="&#34;Move down&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+							</qTrue>
+							<qFalse>
+								<instruction text="&#34;Toggle direction between down and right&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+							</qFalse>
+						</alternative>
+					</qFalse>
+				</alternative>
+			</qTrue>
+			<qFalse>
+				<instruction text="&#34;Move left&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+			</qFalse>
+		</alternative>
+	</children>
+</root>
