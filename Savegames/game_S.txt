@@ -34,6 +34,8 @@ x9, y6, z4096;		//Spieldaten
 x8, y6, z4096;		//Spieldaten
 x7, y6, z4096;		//Spieldaten
 x6, y6, z4096;		//Spieldaten
+x6, y5, z4096;		//Spieldaten
+x9, y1, z4096;		//Spieldaten
 
 x0, y8, z2;		//Spieldaten
 x1, y8, z2;		//Spieldaten
