@@ -7,6 +7,9 @@ namespace Ui {
 class about;
 }
 
+/**
+ * @brief About window
+ */
 class about : public QDialog
 {
     Q_OBJECT

@@ -99,6 +99,16 @@ void QTile::update()
             break;
         }
 
+        case 5:
+            setStyleSheet("QTile { background: black; color: black; font: bold; border-radius: 10px; font: 25pt; }");
+            break;
+        case 15:
+            setStyleSheet("QTile { background: red; color: red; font: bold; border-radius: 10px; font: 25pt; }");
+            break;
+        case 30:
+            setStyleSheet("QTile { background: yellow; color: yellow; font: bold; border-radius: 10px; font: 25pt; }");
+            break;
+
         default:
             if (m_tile->getValue() >= 4096)
             {

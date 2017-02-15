@@ -17,6 +17,11 @@ const int IDENTIFIER=4;
 const int INTEGER1=5;
 const int TOKENSTART=300;
 
+/**
+ * @brief Mapping token to the corresponding index
+ * @param str
+ * @param index
+ */
 class CParser
 {
 public:

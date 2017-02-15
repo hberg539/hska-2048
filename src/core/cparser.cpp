@@ -9,11 +9,7 @@ void CParser::PushString(char c)
     yylval.s += c;
 }
 //------------------------------------------------------------------------
-/**
- * @brief Mapping token to the corresponding index
- * @param str
- * @param index
- */
+
 void CParser::Load_tokenentry(string str,int index)
 {
     IP_Token_table[str]=index;

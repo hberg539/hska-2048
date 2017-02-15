@@ -11,6 +11,9 @@ namespace Ui {
 class newgame;
 }
 
+/**
+ * @brief Window to start a new game
+ */
 class newgame:public QDialog
 {
     Q_OBJECT
