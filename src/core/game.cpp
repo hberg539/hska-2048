@@ -192,13 +192,13 @@ bool Game::load(string filename, string &loadmsg)
 
     filescanner.InitParse(loadfile, stderr, stdout);
 
-    tok = filescanner.yyparse();
+    //tok = filescanner.yyparse();                                            //Liest naechstes Zeichen ein und git Typ zurueck (Integer, Variable, ...)
 
-    do {
+    while((tok = filescanner.yyparse()) != 0) {
 
-        if (tok == C_IDENTIFIER && filescanner.yylval.s == "size"){
+        if (tok == C_IDENTIFIER && filescanner.yylval.s == "size"){         //Erst kommt size Variable
             tok = filescanner.yyparse();
-            if (tok == C_INTEGER1){
+            if (tok == C_INTEGER1){                                         //Dann kommt eigentliche Groesse
                 m_board->updateDimension(filescanner.yylval.i);            //Quadratisches Spielfeld
                 m_board->clear();
             }
@@ -208,8 +208,8 @@ bool Game::load(string filename, string &loadmsg)
             }
         }
         else if (tok == C_IDENTIFIER && filescanner.yylval.s.at(0) == 'x'){
-            temp = filescanner.yylval.s.substr(1);
-            x = atoi(temp.c_str()) ;
+            temp = filescanner.yylval.s.substr(1);                              //Zahl hinter x
+            x = atoi(temp.c_str()) ;                                            //String in Integer
         }
         else if (tok == C_IDENTIFIER && filescanner.yylval.s.at(0) == 'y'){
             temp = filescanner.yylval.s.substr(1);
@@ -221,9 +221,8 @@ bool Game::load(string filename, string &loadmsg)
             m_board->setTile(y, x, z);
         }
 
-        tok = filescanner.yyparse();        //Next
-    }
-    while (tok != 0);
+        //tok = filescanner.yyparse();        //Next
+    }                      
 
     fclose(loadfile);
 

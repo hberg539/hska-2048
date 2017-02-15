@@ -38,7 +38,7 @@ public:
     int IP_MatchToken(string &tok); //checks the token
     void InitParse(FILE *inp,FILE *err,FILE *lst); //Sets the File pointers
     int yyparse(); //parser
-    void pr_tokentable(); //test output for tokens
+    //void pr_tokentable(); //test output for tokens
     void IP_init_token_table(); //loads the tokens
     void Load_tokenentry(string str,int index); //load one token
     void PushString(char c); //Used for dtring assembly

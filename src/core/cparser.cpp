@@ -10,7 +10,7 @@ void CParser::PushString(char c)
 }
 //------------------------------------------------------------------------
 /**
- * @brief CParser::Load_tokenentry
+ * @brief Mapping token to the corresponding index
  * @param str
  * @param index
  */
@@ -20,34 +20,34 @@ void CParser::Load_tokenentry(string str,int index)
     IP_revToken_table[index]=str;
 }
 /**
- * @brief CParser::IP_init_token_table
+ * @brief Init token table
  */
 void CParser::IP_init_token_table()
 {
     Load_tokenentry("STRING1",3);
     Load_tokenentry("IDENTIFIER",4);
     Load_tokenentry("INTEGER1",5);
-    int ii=TOKENSTART;
-//    Load_tokenentry("AND",ii++);
-//    Load_tokenentry("OR",ii++);
-//    Load_tokenentry("Begin",ii++);
-//    Load_tokenentry("End",ii++);
+//    int ii=TOKENSTART;                //TOKENSTART = 300
+//    Load_tokenentry("AND",ii++);      //301
+//    Load_tokenentry("OR",ii++);       //302
+//    Load_tokenentry("Begin",ii++);    //303
+//    Load_tokenentry("End",ii++);      //304
 }
 
 //------------------------------------------------------------------------
 /**
  * @brief CParser::pr_tokentable
  */
-void CParser::pr_tokentable()
-{
-    typedef map<string,int>::const_iterator CI;
-    const char* buf;
-    printf( "Symbol Table ---------------------------------------------\n");
-    for(CI p=IP_Token_table.begin(); p!=IP_Token_table.end(); ++p){
-        buf = p->first.c_str();
-        printf(" key:%s val:%d\n ", buf, p->second);
-    }
-}
+//void CParser::pr_tokentable()
+//{
+//    typedef map<string,int>::const_iterator CI;
+//    const char* buf;
+//    printf( "Symbol Table ---------------------------------------------\n");
+//    for(CI p=IP_Token_table.begin(); p!=IP_Token_table.end(); ++p){
+//        buf = p->first.c_str();
+//        printf(" key:%s val:%d\n ", buf, p->second);
+//    }
+//}
 //------------------------------------------------------------------------
 /**
  * @brief Return the class of word and print the result
@@ -117,7 +117,7 @@ void CParser::InitParse(FILE *inp,FILE *err,FILE *lst)
 }
 //------------------------------------------------------------------------
 /**
- * @brief CParser::IP_MatchToken
+ * @brief Return the corresponding index for the token
  * @param tok
  * @return
  */
@@ -151,11 +151,11 @@ int CParser::yylex()
     * explicitly forces us out of this function.
     */
     for (s = L_START,yytext = ""; 1;){
-        c = Getc(IP_Input);
-        yytext = yytext + (char)c;
-        if(!ugetflag) {
-            if(c != EOF)if(prflag)fprintf(IP_List,"%c",c);
-        }else ugetflag = 0;
+        c = Getc(IP_Input);             //Hole Zeichen aus Datei
+        yytext = yytext + (char)c;      //Zeichen an Text anfuegen
+//        if(!ugetflag) {
+//            if(c != EOF)if(prflag)fprintf(IP_List,"%c",c);
+//        }else ugetflag = 0;
 
         switch (s){
         //Starting state, look for something resembling a token.
@@ -178,7 +178,7 @@ int CParser::yylex()
                     s = L_STRING;
                 }else if (c == EOF){
                     return ('\0');
-                }else{
+                }else{                  //Nicht zugeordnet
                     return (c);
                 }
             break;
@@ -243,7 +243,7 @@ int CParser::yylex()
                 Ungetc(c);
                 yytext = yytext.substr(0,yytext.size()-1);
                 yylval.s = yytext;
-                if (c = IP_MatchToken(yytext)){
+                if (c = IP_MatchToken(yytext)){                 //Abfrage ob yytext definiertes token ist
                     return (c);
                 }else{
                     return (IDENTIFIER);
