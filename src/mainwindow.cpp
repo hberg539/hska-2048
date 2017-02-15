@@ -141,6 +141,11 @@ void MainWindow::on_actionNew_Game_triggered()
     ui_newgame->show();
 }
 
+void MainWindow::on_actionExitr_triggered()
+{
+    MainWindow::close();
+}
+
 /**
  * @brief Opens ui_solver window (menubar)
  */

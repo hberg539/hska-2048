@@ -9,6 +9,11 @@ Solver::Solver(int lastDirection)
     lastDirection=0;
 }
 
+/**
+ * @brief return depending on the last direction, the new direction
+ * @param the last direction move
+ * @return the next direction move
+ */
 Solver::Direction Solver::getDirection(int lastDirection)
 {
     switch(lastDirection)
@@ -21,16 +26,29 @@ Solver::Direction Solver::getDirection(int lastDirection)
     }
 }
 
+/**
+ * @brief getter function for lastDircetion
+ * @return the last direction move
+ */
 int Solver::getlastDirection()
 {
     return this->lastDirection;
 }
 
+/**
+ * @brief setter function for lastDirection
+ * @param the last Direction move
+ */
 void Solver::setlastDirection(int lastDirection)
 {
     this->lastDirection=lastDirection;
 }
 
+/**
+ * @brief checks if a vertical merge is possible
+ * @param Board from the running game
+ * @return if a merge is possible return true else false
+ */
 bool Solver::mergevertical(const T_BOARD & board)
 {
     for(int j=1;j<board.size();j++)

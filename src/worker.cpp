@@ -141,11 +141,10 @@ Command Worker::workerRandom()
 Command Worker::workerRightDown(Solver &solva)
 {
     int a=0;
-    //Solver solv(0);
-     std::vector<std::vector<int> > board = m_game->getBoard()->getBoardAsInt();
-
+    std::vector<std::vector<int> > board = m_game->getBoard()->getBoardAsInt();
     Solver::Direction Direction;
 
+    //is a move down or right possible?
     if(!solva.isRightDownPossible(board))
     {
         //todo id last row is full move down otherwise move right
@@ -174,7 +173,7 @@ Command Worker::workerRightDown(Solver &solva)
             solva.setlastDirection(0);
         }
     }
-    //switch between right and down direction. otherwise go left.
+
     switch (Direction)
     {
         case Solver::Direction::LEFT:
