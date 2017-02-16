@@ -222,7 +222,10 @@ bool Game::load(string filename, string &loadmsg)
         }
 
         //tok = filescanner.yyparse();        //Next
-    }                      
+    }
+
+    // Reset game state
+    m_state = State::GAME_RUNNING;
 
     fclose(loadfile);
 
